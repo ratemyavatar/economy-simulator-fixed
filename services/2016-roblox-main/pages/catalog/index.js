@@ -5,7 +5,7 @@ import thumbnailStore from "../../stores/thumbnailStore";
 import { getItemUrl } from "../../services/catalog";
 
 const CATALOG_CSS = `
-.rbx19{max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px}
+.rbx19{max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px;background:#e3e3e3}
 .rbx19 *{box-sizing:border-box}
 .rbx19 button{appearance:none;-webkit-appearance:none;margin:0;font-family:inherit;line-height:1}
 .rbx19-top{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;position:relative;z-index:50}
@@ -16,9 +16,11 @@ const CATALOG_CSS = `
 .rbx19-ig{display:flex;align-items:center;height:38px}
 .rbx19-input{width:240px;height:38px;border:1px solid #b8b8b8;border-right:0;border-radius:3px 0 0 3px;padding:0 12px;font-size:16px;background:#fff}
 .rbx19-ddwrap{position:relative;height:38px}
-.rbx19-ddbtn{display:flex;align-items:center;justify-content:space-between;height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;width:170px;cursor:pointer}
-.rbx19-ddbtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;padding-right:8px}
-.rbx19-caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919;flex:0 0 auto}
+.rbx19 .input-dropdown-btn{display:flex;align-items:center;justify-content:space-between;height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;width:170px;cursor:pointer}
+.rbx19 .input-dropdown-btn .rbx-selection-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;padding-right:8px}
+.rbx19 .input-dropdown-btn .icon-down{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919;flex:0 0 auto}
+.rbx19 .open .input-dropdown-btn{background:#00a2ff;color:#fff;border-color:#00a2ff}
+.rbx19 .open .input-dropdown-btn .icon-down{border-top-color:#fff}
 .rbx19-menu{position:absolute;z-index:400;left:0;top:100%;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:320px;overflow:auto}
 .rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:0;cursor:pointer;font-size:16px}
 .rbx19-menu button:hover{background:#00a2ff;color:#fff}
@@ -42,7 +44,7 @@ const CATALOG_CSS = `
 .rbx19-crumb{color:#00a2ff;font-weight:500;font-size:16px}
 .rbx19 .item-cards-stackable{width:100%;margin:0;padding:0;list-style:none;font-size:0}
 .rbx19 .item-cards-stackable .item-card{display:inline-block;vertical-align:top;width:150px;padding:5px;font-size:16px}
-.rbx19 .item-card-container{display:block;width:150px;max-width:150px;padding:0 0 6px;background:#fff;color:#191919;text-decoration:none}
+.rbx19 .item-card-container{display:block;width:150px;max-width:150px;padding:0 0 6px;background:#fff;color:#191919;text-decoration:none;border:1px solid #b8b8b8}
 .rbx19 .item-card-link{display:block;width:150px;height:150px}
 .rbx19 .item-card-thumb-container{position:relative;width:150px!important;height:150px!important;border-bottom:1px solid #e3e3e3;background:#f2f2f2;overflow:hidden}
 .rbx19 .item-card-thumb{width:150px!important;height:150px!important;object-fit:cover;display:block;border:0}
@@ -58,18 +60,21 @@ const CATALOG_CSS = `
 .rbx19 .item-card-thumb-container .icon-limited-unique-label{position:absolute;left:0;bottom:0;width:64px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
 .rbx19 .status-new{position:absolute;top:6px;right:6px;background:#f68802;color:#fff;font-size:10px;padding:4px;border-radius:3px}
 .rbx19-empty{text-align:center;padding:24px;color:#757575}
-.rbx19 .rbx-pager{text-align:center;margin-top:20px}
-.rbx19 .pager{display:inline-block;padding:0;margin:0;list-style:none}
-.rbx19 .pager:after{content:" ";display:table;clear:both}
+.rbx19 .rbx-pager{text-align:center}
+.rbx19 .pager{padding-left:0;margin:20px 0;list-style:none;text-align:center;display:inline-block}
+.rbx19 .pager:after,.rbx19 .pager:before{content:" ";display:table}
+.rbx19 .pager:after{clear:both}
 .rbx19 .pager li{float:left}
-.rbx19 .pager li span.page-label{border:0;padding:5px 12px 0 0;display:inline-block;font-size:16px;color:#191919;line-height:22px}
-.rbx19 .pager .pager-prev a,.rbx19 .pager .pager-next a{margin:0 9px 0 0;height:32px;width:32px;padding:3px 0 0;color:#191919;text-align:center;background:#fff;border:1px solid #b8b8b8;border-radius:3px;display:inline-block;cursor:pointer}
-.rbx19 .pager .pager-prev a:hover,.rbx19 .pager .pager-next a:hover{background:#f2f2f2}
-.rbx19 .pager .icon-back,.rbx19 .pager .icon-next{display:inline-block;width:20px;height:20px;background-image:url(/img/generic_01312019.svg);background-repeat:no-repeat;background-size:40px auto;background-color:#fff}
-.rbx19 .pager .pager-prev .icon-back{background-position:0 -300px}
-.rbx19 .pager .pager-next .icon-next{background-position:0 -280px}
-.rbx19 .pager .disabled a,.rbx19 .pager .disabled a:hover{cursor:default;background:#f2f2f2;border-color:#e3e3e3}
-.rbx19 .pager .disabled .icon-back,.rbx19 .pager .disabled .icon-next{background-color:#f2f2f2}
+.rbx19 .pager li a{margin:0 9px 0 0;height:32px;width:32px;color:#191919;text-align:center;padding:3px 0 0}
+.rbx19 .pager li span{border:0;padding:5px 5px 0 0;display:inline-block}
+.rbx19 .pager .pager-next,.rbx19 .pager .pager-prev{user-select:none}
+.rbx19 .pager .pager-next a,.rbx19 .pager .pager-prev a{margin-left:0;background-color:#fff;border:1px solid #b8b8b8;border-radius:3px;display:inline-block}
+.rbx19 .pager .pager-next a:hover,.rbx19 .pager .pager-prev a:hover,.rbx19 .pager .pager-next a:hover span,.rbx19 .pager .pager-prev a:hover span{background-color:#f2f2f2}
+.rbx19 .pager .pager-next a span,.rbx19 .pager .pager-prev a span{background-color:#fff;background-image:url(/img/generic_01312019.svg);background-repeat:no-repeat;background-size:40px auto;width:20px;height:20px}
+.rbx19 .pager .pager-prev span{background-position:0 -300px}
+.rbx19 .pager .pager-next span{background-position:0 -280px}
+.rbx19 .pager .disabled>a,.rbx19 .pager .disabled>a:hover{cursor:default;background-color:#f2f2f2;border:1px solid #e3e3e3}
+.rbx19 .pager .disabled>a span,.rbx19 .pager .disabled>a:hover span{background-color:#f2f2f2}
 .rbx19-dim{opacity:.45}
 @media (max-width:767px){
 .rbx19{padding:8px 4px 32px}
@@ -319,10 +324,10 @@ const CatalogInner = () => {
         <div className="rbx19-search">
           <div className="rbx19-ig">
             <input className="rbx19-input" placeholder="Search" maxLength={50} ref={input} onKeyDown={(e) => { if (e.key === "Enter") applySearch(e); }} />
-            <div className="rbx19-ddwrap">
-              <button type="button" className="rbx19-ddbtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCatOpen(!catOpen); setSortOpen(false); }}>
-                <span>{catLabel}</span>
-                <i className="rbx19-caret"></i>
+            <div className={"rbx19-ddwrap input-group-btn" + (catOpen ? " open" : "")}>
+              <button type="button" className="input-dropdown-btn category-options" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCatOpen(!catOpen); setSortOpen(false); }}>
+                <span className="rbx-selection-label">{catLabel}</span>
+                <span className="icon-down"></span>
               </button>
               {catOpen ? (
                 <div className="rbx19-menu">
@@ -432,7 +437,7 @@ const CatalogInner = () => {
               <li className={store.page <= 1 || store.locked ? "pager-prev disabled" : "pager-prev"}>
                 <a href="#" onClick={pageClick(-1)}><span className="icon-back"></span></a>
               </li>
-              <li><span className="page-label">Page {store.page}</span></li>
+              <li><span>Page {store.page}</span></li>
               <li className={store.locked || (!store.nextCursor && items.length < store.limit) ? "pager-next disabled" : "pager-next"}>
                 <a href="#" onClick={pageClick(1)}><span className="icon-next"></span></a>
               </li>
