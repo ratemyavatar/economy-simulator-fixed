@@ -22,17 +22,17 @@ const CATALOG_CSS = `
 .rbx19 .inherit-font-size{font-size:inherit}
 .rbx19 .display-none{display:none}
 .rbx19 .text-overflow-2{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box!important}
-.rbx19 .inputTextStyle{border:1px solid var(--text-color-secondary);color:var(--text-color-primary);font-weight:300;font-size:16px;height:38px;line-height:100%;padding:5px 12px;appearance:none;display:block;width:100%;background-color:var(--white-color);border-radius:3px;outline:none}
+.rbx19 .inputTextStyle{border:1px solid var(--text-color-secondary);color:var(--text-color-primary);font-weight:300;font-size:16px;height:38px;line-height:36px;padding:0 12px;appearance:none;display:block;width:100%;background-color:var(--white-color);border-radius:3px;outline:none;box-sizing:border-box}
 .rbx19 .catalogHeader-0-2-225{width:100%}
 .rbx19 .catalogHeader-0-2-225 h1{margin:0;font-size:36px;font-weight:800}
-.rbx19 .search-0-2-236{align-items:center}
-.rbx19 .searchWrapper-0-2-233{width:300px;display:flex}
-.rbx19 .inputStyle-0-2-230{color:var(--text-color-primary);width:100%;font-weight:500;border-top-right-radius:0;border-bottom-right-radius:0}
-.rbx19 .selectorWrapper-0-2-231{width:200px;position:relative}
-.rbx19 .selector-0-2-232{padding:5px 12px;border-left:none;border-color:var(--text-color-secondary);border-radius:0}
-.rbx19 .selector-0-2-232 *{font-weight:500;line-height:26px}
-.rbx19 .searchButton-0-2-234{padding:4px;border-left:0;border-top-left-radius:0;border-bottom-left-radius:0;cursor:pointer}
-.rbx19 .newCancelButton-0-2-148{height:auto;display:inline-block;padding:9px;font-size:18px;background:var(--white-color);text-align:center;font-weight:500;line-height:100%;user-select:none;white-space:nowrap;border-radius:3px;vertical-align:middle;color:var(--text-color-primary)!important;border:1px solid var(--text-color-secondary)!important}
+.rbx19 .search-0-2-236{align-items:stretch;flex-wrap:nowrap;height:38px}
+.rbx19 .searchWrapper-0-2-233{width:300px;display:flex;height:38px}
+.rbx19 .inputStyle-0-2-230{color:var(--text-color-primary);width:100%;height:38px;font-weight:500;border-top-right-radius:0;border-bottom-right-radius:0}
+.rbx19 .selectorWrapper-0-2-231{width:200px;position:relative;height:38px}
+.rbx19 .selector-0-2-232{height:38px;padding:0 12px;border-left:none;border-color:var(--text-color-secondary);border-radius:0;display:flex;align-items:center;box-sizing:border-box}
+.rbx19 .selector-0-2-232 *{font-weight:500;line-height:36px}
+.rbx19 .searchButton-0-2-234{height:38px;width:38px;padding:0;border-left:0;border-top-left-radius:0;border-bottom-left-radius:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
+.rbx19 .newCancelButton-0-2-148{height:38px;display:inline-flex;align-items:center;justify-content:center;padding:0 8px;font-size:18px;background:var(--white-color);text-align:center;font-weight:500;line-height:100%;user-select:none;white-space:nowrap;border-radius:3px;vertical-align:middle;color:var(--text-color-primary)!important;border:1px solid var(--text-color-secondary)!important;box-sizing:border-box}
 .rbx19 .icon-default-generic,.rbx19 .icon-search,.rbx19 .icon-menu,.rbx19 .icon-plus,.rbx19 .icon-minus,.rbx19 .icon-close,.rbx19 .icon-back,.rbx19 .icon-next{background-repeat:no-repeat;display:inline-block;vertical-align:middle}
 .rbx19 .icon-search,.rbx19 .icon-menu,.rbx19 .icon-close{background-image:url(/img/generic_03112016.svg);background-size:auto;width:28px;height:28px}
 .rbx19 .icon-search{background-position:0 -28px}
@@ -43,7 +43,8 @@ const CATALOG_CSS = `
 .rbx19 .icon-minus{background-position:0 -672px}
 .rbx19 .icon-plus:hover{background-position:-12px -660px}
 .rbx19 .icon-minus:hover{background-position:-12px -672px}
-.rbx19 .selectorClosed-0-2-243{color:var(--text-color-primary);width:100%;border:1px solid var(--text-color-quinary);cursor:pointer;padding:10px 15px;font-size:16px;background:var(--white-color);text-align:left;user-select:none;border-radius:4px}
+.rbx19 .selectorClosed-0-2-243{color:var(--text-color-primary);width:100%;border:1px solid var(--text-color-quinary);cursor:pointer;padding:10px 15px;font-size:16px;background:var(--white-color);text-align:left;user-select:none;border-radius:4px;box-sizing:border-box}
+.rbx19 .search-0-2-236 .selectorClosed-0-2-243{height:38px;padding:0 12px;line-height:36px;border-radius:0;display:flex;align-items:center}
 .rbx19 .selectorClosed-0-2-243:hover{background:var(--primary-color);color:var(--white-color)}
 .rbx19 .selectorCaret-0-2-245{float:right}
 .rbx19 .selectorMenuOpen-0-2-246{width:100%;z-index:3;position:absolute;left:0;top:100%;background:#fff;overflow-x:hidden;border-radius:4px;border:1px solid var(--text-color-secondary);box-shadow:0 2px 4px rgba(0,0,0,.15)}
