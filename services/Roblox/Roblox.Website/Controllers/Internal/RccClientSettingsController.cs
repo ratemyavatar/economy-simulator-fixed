@@ -10,7 +10,7 @@ namespace Roblox.Website.Controllers
         [HttpGet("/Setting/QuietGet/{appName}/")]
         [HttpGetBypass("/Setting/QuietGet/{appName}")]
         [HttpGetBypass("/Setting/QuietGet/{appName}/")]
-        public IActionResult QuietGetByName(string appName, string? apiKey = null)
+        public IActionResult QuietGetByName(string appName)
         {
             return Ok(new Dictionary<string, object>
             {
@@ -22,7 +22,7 @@ namespace Roblox.Website.Controllers
         [HttpGet("/GetAllowedSecurityVersions/")]
         [HttpGetBypass("/GetAllowedSecurityVersions")]
         [HttpGetBypass("/GetAllowedSecurityVersions/")]
-        public IActionResult GetAllowedSecurityVersions(string? apiKey = null)
+        public IActionResult GetAllowedSecurityVersions()
         {
             return Ok(new { data = Array.Empty<string>() });
         }
@@ -31,7 +31,7 @@ namespace Roblox.Website.Controllers
         [HttpGet("/GetAllowedMD5Hashes/")]
         [HttpGetBypass("/GetAllowedMD5Hashes")]
         [HttpGetBypass("/GetAllowedMD5Hashes/")]
-        public IActionResult GetAllowedMd5Hashes(string? apiKey = null)
+        public IActionResult GetAllowedMd5Hashes()
         {
             return Ok(new { data = Array.Empty<string>() });
         }
