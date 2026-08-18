@@ -6,28 +6,34 @@ namespace Roblox.Website.Controllers
     [Route("/")]
     public class RccClientSettingsController : ControllerBase
     {
+        [HttpGet("/Setting/QuietGet/{appName}")]
+        [HttpGet("/Setting/QuietGet/{appName}/")]
         [HttpGetBypass("/Setting/QuietGet/{appName}")]
         [HttpGetBypass("/Setting/QuietGet/{appName}/")]
-        public Dictionary<string, object> QuietGetByName(string appName, string? apiKey = null)
+        public IActionResult QuietGetByName(string appName, string? apiKey = null)
         {
-            return new Dictionary<string, object>
+            return Ok(new Dictionary<string, object>
             {
                 { "FlagsLoaded", true }
-            };
+            });
         }
 
+        [HttpGet("/GetAllowedSecurityVersions")]
+        [HttpGet("/GetAllowedSecurityVersions/")]
         [HttpGetBypass("/GetAllowedSecurityVersions")]
         [HttpGetBypass("/GetAllowedSecurityVersions/")]
-        public object GetAllowedSecurityVersions(string? apiKey = null)
+        public IActionResult GetAllowedSecurityVersions(string? apiKey = null)
         {
-            return new { data = Array.Empty<string>() };
+            return Ok(new { data = Array.Empty<string>() });
         }
 
+        [HttpGet("/GetAllowedMD5Hashes")]
+        [HttpGet("/GetAllowedMD5Hashes/")]
         [HttpGetBypass("/GetAllowedMD5Hashes")]
         [HttpGetBypass("/GetAllowedMD5Hashes/")]
-        public object GetAllowedMd5Hashes(string? apiKey = null)
+        public IActionResult GetAllowedMd5Hashes(string? apiKey = null)
         {
-            return new { data = Array.Empty<string>() };
+            return Ok(new { data = Array.Empty<string>() });
         }
     }
 }
