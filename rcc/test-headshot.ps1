@@ -25,22 +25,7 @@ function Send-RccSoap([string]$Action, [string]$BodyXml) {
   }
 }
 
-Write-Host "Checking RCC on $rcc ..."
-try {
-  $ping = Invoke-WebRequest -Uri $rcc -Method GET -TimeoutSec 5 -UseBasicParsing
-  Write-Host "RCC GET status $($ping.StatusCode)"
-} catch {
-  $code = $null
-  if ($_.Exception.Response) { $code = [int]$_.Exception.Response.StatusCode }
-  if ($code -eq 500 -or $code -eq 405 -or $code -eq 400) {
-    Write-Host "RCC is up (GET returned $code, normal for SOAP)."
-  } else {
-    Write-Host "RCC is not answering on port $Port."
-    Write-Host "Start RCC first (CMD): cd to the folder with RCCService2020 then run.bat"
-    Write-Host $_.Exception.Message
-    exit 1
-  }
-}
+Write-Host "RCC target $rcc (GET is ignored; SOAP 500 on GET is normal)"
 
 $hello = @"
 <?xml version="1.0" encoding="utf-8"?>
