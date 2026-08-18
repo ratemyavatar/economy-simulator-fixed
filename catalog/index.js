@@ -21,7 +21,7 @@ const CATALOG_CSS = `
 .rbx19-ddbtn:disabled{opacity:.5;cursor:not-allowed}
 .rbx19-ddbtn span{display:inline-block;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
 .rbx19-caret{float:right;margin-top:16px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919}
-.rbx19-menu{display:block;position:absolute;z-index:40;left:0;top:38px;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;list-style:none;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:338px;overflow:auto}
+.rbx19-menu{display:block;position:absolute;z-index:200;left:0;top:38px;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;list-style:none;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:338px;overflow:auto}
 .rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;color:#191919;background:transparent;border:0;cursor:pointer;font-size:16px}
 .rbx19-menu button:hover{background:#00a2ff;color:#fff}
 .rbx19-searchbtn{height:38px;width:38px;background:#00a2ff;border:1px solid #00a2ff;color:#fff;cursor:pointer}
@@ -44,9 +44,9 @@ const CATALOG_CSS = `
 .rbx19-filters input{margin-right:6px}
 .rbx19-allg{background:none;border:0;padding:0 0 6px;color:#0055b3;cursor:pointer;font-weight:600;font-size:13px}
 .rbx19-main{flex:1;min-width:0;padding-left:8px}
-.rbx19-crumbs{overflow:hidden;margin:6px 0 12px;padding-left:6px}
-.rbx19-crumb{float:left;color:#00a2ff;font-weight:500;font-size:16px}
-.rbx19-sorts{float:right;position:relative}
+.rbx19-crumbs{margin:6px 0 12px;padding-left:6px;min-height:38px;position:relative;z-index:20}
+.rbx19-crumb{float:left;color:#00a2ff;font-weight:500;font-size:16px;line-height:38px}
+.rbx19-sorts{float:right;position:relative;z-index:30}
 .rbx19-cards{list-style:none;margin:0 -5px;padding:0;overflow:hidden}
 .rbx19-card{float:left;width:20%;padding:5px}
 .rbx19-card a{display:block;position:relative;background:#fff;max-width:150px;margin:0 auto;padding:0 0 5px;color:#191919;text-decoration:none}
@@ -87,12 +87,6 @@ const NAV = [
       { name: "Featured Bundles", category: "Featured", subCategory: "Packages" },
       { name: "Featured Emotes", category: "Featured", subCategory: "Accessories" },
     ],
-  },
-  {
-    name: "Community Creations",
-    category: "Featured",
-    subCategory: "",
-    children: [],
   },
   {
     name: "Collectibles",
@@ -183,7 +177,6 @@ const SORTS = [
 const SEARCH_CATS = [
   "All Categories",
   "Featured",
-  "Community Creations",
   "Collectibles",
   "Clothing",
   "Body Parts",
@@ -309,7 +302,7 @@ const CatalogInner = () => {
         <h1 className="rbx19-heading">
           <a href="/catalog" onClick={(e) => { e.preventDefault(); applyNav(store, "Featured", ""); setOpenPanel("Featured"); setCatLabel("Featured"); }}>Catalog</a>
         </h1>
-        <a className="rbx19-buy" href="/upgrades/robux">Buy Robux</a>
+        <a className="rbx19-buy" href="/BuildersClub/Upgrade.ashx">Buy Robux</a>
         <div className="rbx19-search">
           <div className="rbx19-ig">
             <input
