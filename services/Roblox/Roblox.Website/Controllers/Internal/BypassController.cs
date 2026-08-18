@@ -856,6 +856,27 @@ namespace Roblox.Website.Controllers
             return await MigrateItem.MigrateItemFromRoblox(assetId, true, 5, new List<Models.Assets.Type>() { Models.Assets.Type.TeeShirt, Models.Assets.Type.Shirt, Models.Assets.Type.Pants });
         }
 
+        [HttpGetBypass("/Setting/QuietGet/{appName}")]
+        [HttpGetBypass("/Setting/QuietGet/{appName}/")]
+        public Dictionary<string, dynamic> GetAppSettingsByName(string appName, string? apiKey = null)
+        {
+            return GetAppSettings(apiKey);
+        }
+
+        [HttpGetBypass("/GetAllowedSecurityVersions")]
+        [HttpGetBypass("/GetAllowedSecurityVersions/")]
+        public dynamic GetAllowedSecurityVersions(string? apiKey = null)
+        {
+            return new { data = Array.Empty<string>() };
+        }
+
+        [HttpGetBypass("/GetAllowedMD5Hashes")]
+        [HttpGetBypass("/GetAllowedMD5Hashes/")]
+        public dynamic GetAllowedMd5Hashes(string? apiKey = null)
+        {
+            return new { data = Array.Empty<string>() };
+        }
+
         [HttpGetBypass("/apisite/clientsettings/Setting/QuietGet/ClientAppSettings")]
         [HttpGetBypass("/apisite/clientsettings/Setting/QuietGet/RccAppSettings")]
         [HttpGetBypass("/apisite/clientsettings/Setting/QuietGet/FireFoxAppSettings")]
