@@ -48,17 +48,23 @@ const CATALOG_CSS = `
 .rbx19-crumbs{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px;padding-left:6px;min-height:38px;position:relative;z-index:30;overflow:visible}
 .rbx19-crumb{color:#00a2ff;font-weight:500;font-size:16px;line-height:38px}
 .rbx19-sorts{position:relative;z-index:40;overflow:visible}
-.rbx19-cards{list-style:none;margin:0 -5px;padding:0;overflow:hidden}
-.rbx19-card{float:left;width:20%;padding:5px}
-.rbx19-card a{display:block;position:relative;background:#fff;max-width:150px;margin:0 auto;padding:0 0 5px;color:#191919;text-decoration:none}
-.rbx19-thumb{position:relative;width:100%;padding-bottom:100%;background:#e3e3e3;overflow:hidden}
-.rbx19-thumb img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border:0}
-.rbx19-name{margin-top:6px;font-size:16px;line-height:1.2em;max-height:2.4em;overflow:hidden}
-.rbx19-price{margin-top:3px;font-size:14px;font-weight:500;color:#02b757}
-.rbx19-robux{display:inline-block;width:16px;height:16px;background:url(/img/img-robux.png) no-repeat center;background-size:contain;vertical-align:middle;margin-right:3px}
-.rbx19-lim{position:absolute;left:0;bottom:0;width:48px;height:16px;background:url(/img/CatalogOverlays/Limited.png) no-repeat;background-size:contain}
-.rbx19-limu{position:absolute;left:0;bottom:0;width:64px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
-.rbx19-new{position:absolute;top:6px;right:6px;background:#f68802;color:#fff;font-size:12px;padding:4px;border-radius:3px;z-index:1}
+.rbx19 .item-cards-stackable{width:100%;overflow:visible;list-style:none;margin:0;padding:0;font-size:0}
+.rbx19 .item-cards-stackable .item-card{float:none;display:inline-block;vertical-align:top;padding:5px;width:16.6667%;font-size:16px}
+.rbx19 .item-card-container{display:block;position:relative;padding:0 0 5px;width:126px;max-width:150px;height:100%;margin:0 auto;background:#fff;color:#191919;text-decoration:none}
+.rbx19 .item-card-link,.rbx19 .item-card-name-link{display:block}
+.rbx19 .item-card-thumb-container{width:126px;height:126px;position:relative;border-bottom:1px solid #e3e3e3;background:#e3e3e3;overflow:hidden}
+.rbx19 .item-card-thumb-container .item-card-thumb{width:100%;height:100%;object-fit:cover;border:0;display:block}
+.rbx19 .item-card-thumb-container span[class^=\"icon-\"]{position:absolute;bottom:-2px;left:-2px}
+.rbx19 .item-card-caption{padding-top:5px}
+.rbx19 .item-card-name{height:45px;overflow:hidden;white-space:normal;font-weight:500;padding:0 5px;color:#191919}
+.rbx19 .item-card-price{padding:0 5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.rbx19 .text-robux-tile{color:#02b757;font-weight:500}
+.rbx19 .item-card-price .icon-robux{display:inline-block;width:16px;height:12px;background:url(/img/img-robux.png) no-repeat center;background-size:contain;vertical-align:middle;margin:0 3px 0 0;float:none}
+.rbx19 .item-card-thumb-container .icon-limited-label{width:60px;height:16px;background:url(/img/CatalogOverlays/Limited.png) no-repeat;background-size:contain}
+.rbx19 .item-card-thumb-container .icon-limited-unique-label{width:80px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
+.rbx19 .asset-status-icon{position:absolute;top:6px;right:6px;z-index:1}
+.rbx19 .status-new{display:inline-block;font-size:12px;background:#f68802;color:#fff;padding:4px;border-radius:3px;line-height:1em}
+@media (max-width:991px){.rbx19 .item-cards-stackable .item-card{width:20%}.rbx19 .item-card-container,.rbx19 .item-card-thumb-container{width:100%}}
 .rbx19-empty{text-align:center;padding:24px;color:#757575}
 .rbx19-pager{text-align:center;margin:20px 0 0;padding:0;list-style:none}
 .rbx19-pager li{display:inline-block;margin:0 4px}
@@ -467,7 +473,7 @@ const CatalogInner = () => {
           </div>
           <div className={store.locked ? "rbx19-dim" : ""}>
             {store.results && items.length === 0 ? <div className="rbx19-empty">No items found.</div> : null}
-            <ul className="rbx19-cards">
+            <ul className="hlist item-cards-stackable">
               {items.map((v) => (
                 <ItemCard key={v.id} {...v} />
               ))}
