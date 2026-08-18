@@ -23,8 +23,7 @@ const CATALOG_CSS = `
 .rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:0;cursor:pointer;font-size:16px}
 .rbx19-menu button:hover{background:#00a2ff;color:#fff}
 .rbx19-searchbtn{display:flex;align-items:center;justify-content:center;height:38px;width:38px;padding:0;background:#00a2ff;border:1px solid #00a2ff;cursor:pointer;border-radius:0 3px 3px 0}
-.rbx19-searchicon{width:12px;height:12px;border:2px solid #fff;border-radius:50%;position:relative}
-.rbx19-searchicon:after{content:"";position:absolute;width:6px;height:2px;background:#fff;right:-4px;bottom:0;transform:rotate(45deg)}
+.rbx19-searchbtn .icon-search{display:inline-block;width:20px;height:20px;background-image:url(/img/generic_01312019.svg);background-repeat:no-repeat;background-size:40px auto;background-position:-20px -20px}
 .rbx19-body{display:flex;align-items:flex-start}
 .rbx19-side{width:160px;flex:0 0 160px;padding-right:12px;border-right:1px solid #b8b8b8}
 .rbx19-side h3{margin:0 0 8px;font-size:20px;font-weight:700}
