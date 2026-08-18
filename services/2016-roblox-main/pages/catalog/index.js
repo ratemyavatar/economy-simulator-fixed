@@ -55,19 +55,23 @@ const CATALOG_CSS = `
 .rbx19 .font-header-2{font-size:16px;font-weight:500}
 .rbx19 .text-subheader{color:#757575}
 .rbx19 .text-robux-tile{color:#02b757!important;font-weight:500}
-.rbx19 .item-card-price .icon-robux{display:inline-block;width:16px;height:16px;background:url(/img/img-robux.png) no-repeat center;background-size:contain;vertical-align:middle;margin:0 4px 0 0}
+.rbx19 .item-card-price .icon-robux{display:inline-block;width:16px;height:16px;background-image:url(/img/branded_04182018.svg);background-repeat:no-repeat;background-size:32px auto;background-position:0 -64px;vertical-align:middle;margin:0 4px 2px 0;float:none}
 .rbx19 .item-card-thumb-container .icon-limited-label{position:absolute;left:0;bottom:0;width:48px;height:16px;background:url(/img/CatalogOverlays/Limited.png) no-repeat;background-size:contain}
 .rbx19 .item-card-thumb-container .icon-limited-unique-label{position:absolute;left:0;bottom:0;width:64px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
 .rbx19 .status-new{position:absolute;top:6px;right:6px;background:#f68802;color:#fff;font-size:10px;padding:4px;border-radius:3px}
 .rbx19-empty{text-align:center;padding:24px;color:#757575}
-.rbx19 .pager{list-style:none;margin:20px 0 0;padding:0;text-align:center}
-.rbx19 .pager li{display:inline-block;vertical-align:middle;margin:0 6px}
-.rbx19 .pager a,.rbx19 .pager button{display:inline-block;width:32px;height:32px;padding:0;border:1px solid #b8b8b8;border-radius:3px;background:#fff;cursor:pointer}
-.rbx19 .pager .disabled a,.rbx19 .pager .disabled button{opacity:.35;cursor:default}
-.rbx19 .pager .page-label{font-size:16px;color:#191919}
-.rbx19-chev{display:inline-block;width:0;height:0;margin-top:11px;border-top:5px solid transparent;border-bottom:5px solid transparent}
-.rbx19-chev-l{border-right:6px solid #00a2ff;margin-left:11px}
-.rbx19-chev-r{border-left:6px solid #00a2ff;margin-left:13px}
+.rbx19 .rbx-pager{text-align:center;margin-top:20px}
+.rbx19 .pager{display:inline-block;padding:0;margin:0;list-style:none}
+.rbx19 .pager:after{content:" ";display:table;clear:both}
+.rbx19 .pager li{float:left}
+.rbx19 .pager li span.page-label{border:0;padding:5px 12px 0 0;display:inline-block;font-size:16px;color:#191919;line-height:22px}
+.rbx19 .pager .pager-prev a,.rbx19 .pager .pager-next a{margin:0 9px 0 0;height:32px;width:32px;padding:3px 0 0;color:#191919;text-align:center;background:#fff;border:1px solid #b8b8b8;border-radius:3px;display:inline-block;cursor:pointer}
+.rbx19 .pager .pager-prev a:hover,.rbx19 .pager .pager-next a:hover{background:#f2f2f2}
+.rbx19 .pager .icon-back,.rbx19 .pager .icon-next{display:inline-block;width:20px;height:20px;background-image:url(/img/generic_01312019.svg);background-repeat:no-repeat;background-size:40px auto;background-color:#fff}
+.rbx19 .pager .pager-prev .icon-back{background-position:0 -300px}
+.rbx19 .pager .pager-next .icon-next{background-position:0 -280px}
+.rbx19 .pager .disabled a,.rbx19 .pager .disabled a:hover{cursor:default;background:#f2f2f2;border-color:#e3e3e3}
+.rbx19 .pager .disabled .icon-back,.rbx19 .pager .disabled .icon-next{background-color:#f2f2f2}
 .rbx19-dim{opacity:.45}
 `;
 
@@ -411,18 +415,16 @@ const CatalogInner = () => {
               {items.map((v) => <ItemCard key={v.id} {...v} />)}
             </ul>
           </div>
-          <div className="rbx19-pagerwrap">
-            <div className="row">
-              <div className="col-3">
-                <button type="button" className="w-100" onClick={pageClick(-1)} disabled={store.page <= 1 || store.locked}>Previous</button>
-              </div>
-              <div className="col-6">
-                <p className="mb-0 text-center">Page {store.page}</p>
-              </div>
-              <div className="col-3">
-                <button type="button" className="w-100" onClick={pageClick(1)} disabled={store.locked || (!store.nextCursor && items.length < store.limit)}>Next</button>
-              </div>
-            </div>
+          <div className="rbx-pager">
+            <ul className="pager">
+              <li className={store.page <= 1 || store.locked ? "pager-prev disabled" : "pager-prev"}>
+                <a href="#" onClick={pageClick(-1)}><span className="icon-back"></span></a>
+              </li>
+              <li><span className="page-label">Page {store.page}</span></li>
+              <li className={store.locked || (!store.nextCursor && items.length < store.limit) ? "pager-next disabled" : "pager-next"}>
+                <a href="#" onClick={pageClick(1)}><span className="icon-next"></span></a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
