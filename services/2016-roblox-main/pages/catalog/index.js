@@ -30,7 +30,7 @@ const CATALOG_CSS = `
 .rbx19 .inputStyle-0-2-230{color:var(--text-color-primary);width:100%;height:38px;font-weight:500;border-top-right-radius:0;border-bottom-right-radius:0}
 .rbx19 .selectorWrapper-0-2-231{width:200px;position:relative;height:38px}
 .rbx19 .selector-0-2-232{height:38px;padding:0 12px;border-left:none;border-color:var(--text-color-secondary);border-radius:0;display:flex;align-items:center;box-sizing:border-box}
-.rbx19 .selector-0-2-232 *{font-weight:500;line-height:36px}
+.rbx19 .selector-0-2-232 *{font-weight:500;line-height:1}
 .rbx19 .searchButton-0-2-234{height:38px;width:38px;padding:0;border-left:0;border-top-left-radius:0;border-bottom-left-radius:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-sizing:border-box}
 .rbx19 .newCancelButton-0-2-148{height:38px;display:inline-flex;align-items:center;justify-content:center;padding:0 8px;font-size:18px;background:var(--white-color);text-align:center;font-weight:500;line-height:100%;user-select:none;white-space:nowrap;border-radius:3px;vertical-align:middle;color:var(--text-color-primary)!important;border:1px solid var(--text-color-secondary)!important;box-sizing:border-box}
 .rbx19 .icon-default-generic,.rbx19 .icon-search,.rbx19 .icon-menu,.rbx19 .icon-plus,.rbx19 .icon-minus,.rbx19 .icon-close,.rbx19 .icon-back,.rbx19 .icon-next{background-repeat:no-repeat;display:inline-block;vertical-align:middle}
@@ -503,6 +503,10 @@ const CatalogPage = () => {
 
 CatalogPage.getInitialProps = () => {
   return { title: "Catalog - ROBLOX" };
+};
+
+export default CatalogPage;
+;
 };
 
 export default CatalogPage;
