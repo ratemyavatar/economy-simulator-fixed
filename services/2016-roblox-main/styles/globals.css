@@ -5,6 +5,7 @@ body {
 	font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	min-height: 100vh;
+	background: #e3e3e3;
 }
 div#__next > div > div.container {
 	min-height: 100vh;

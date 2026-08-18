@@ -16,11 +16,9 @@ const CATALOG_CSS = `
 .rbx19-ig{display:flex;align-items:center;height:38px}
 .rbx19-input{width:240px;height:38px;border:1px solid #b8b8b8;border-right:0;border-radius:3px 0 0 3px;padding:0 12px;font-size:16px;background:#fff}
 .rbx19-ddwrap{position:relative;height:38px}
-.rbx19 .input-dropdown-btn{display:flex;align-items:center;justify-content:space-between;height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;width:170px;cursor:pointer}
-.rbx19 .input-dropdown-btn .rbx-selection-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;padding-right:8px}
-.rbx19 .input-dropdown-btn .icon-down{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919;flex:0 0 auto}
-.rbx19 .open .input-dropdown-btn{background:#00a2ff;color:#fff;border-color:#00a2ff}
-.rbx19 .open .input-dropdown-btn .icon-down{border-top-color:#fff}
+.rbx19-ddbtn{display:flex;align-items:center;justify-content:space-between;height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;width:170px;cursor:pointer}
+.rbx19-ddbtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;padding-right:8px}
+.rbx19-caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919;flex:0 0 auto}
 .rbx19-menu{position:absolute;z-index:400;left:0;top:100%;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:320px;overflow:auto}
 .rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:0;cursor:pointer;font-size:16px}
 .rbx19-menu button:hover{background:#00a2ff;color:#fff}
@@ -324,10 +322,10 @@ const CatalogInner = () => {
         <div className="rbx19-search">
           <div className="rbx19-ig">
             <input className="rbx19-input" placeholder="Search" maxLength={50} ref={input} onKeyDown={(e) => { if (e.key === "Enter") applySearch(e); }} />
-            <div className={"rbx19-ddwrap input-group-btn" + (catOpen ? " open" : "")}>
-              <button type="button" className="input-dropdown-btn category-options" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCatOpen(!catOpen); setSortOpen(false); }}>
-                <span className="rbx-selection-label">{catLabel}</span>
-                <span className="icon-down"></span>
+            <div className="rbx19-ddwrap">
+              <button type="button" className="rbx19-ddbtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCatOpen(!catOpen); setSortOpen(false); }}>
+                <span>{catLabel}</span>
+                <i className="rbx19-caret"></i>
               </button>
               {catOpen ? (
                 <div className="rbx19-menu">
