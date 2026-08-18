@@ -43,23 +43,31 @@ const CATALOG_CSS = `
 .rbx19-crumbs{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px;min-height:38px;position:relative;z-index:30}
 .rbx19-crumb{color:#00a2ff;font-weight:500;font-size:16px}
 .rbx19 .item-cards-stackable{width:100%;margin:0;padding:0;list-style:none;font-size:0}
-.rbx19 .item-cards-stackable .item-card{display:inline-block;vertical-align:top;width:126px;padding:5px;font-size:16px}
-.rbx19 .item-card-container{display:block;width:126px;max-width:126px;padding:0 0 5px;background:#fff;color:#191919;text-decoration:none}
-.rbx19 .item-card-link{display:block;width:126px;height:126px}
-.rbx19 .item-card-thumb-container{position:relative;width:126px!important;height:126px!important;max-width:126px;max-height:126px;border-bottom:1px solid #e3e3e3;background:#e3e3e3;overflow:hidden}
-.rbx19 .item-card-thumb{width:126px!important;height:126px!important;max-width:126px!important;max-height:126px!important;object-fit:cover;display:block;border:0}
-.rbx19 .item-card-caption{padding-top:5px;width:126px}
-.rbx19 .item-card-name{height:40px;overflow:hidden;font-weight:500;padding:0 5px;font-size:16px;line-height:1.2}
-.rbx19 .item-card-price{padding:0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rbx19 .text-robux-tile{color:#02b757;font-weight:500}
-.rbx19 .item-card-price .icon-robux{display:inline-block;width:16px;height:12px;background:url(/img/img-robux.png) no-repeat center;background-size:contain;vertical-align:middle;margin-right:3px}
+.rbx19 .item-cards-stackable .item-card{display:inline-block;vertical-align:top;width:150px;padding:5px;font-size:16px}
+.rbx19 .item-card-container{display:block;width:150px;max-width:150px;padding:0 0 6px;background:#fff;color:#191919;text-decoration:none}
+.rbx19 .item-card-link{display:block;width:150px;height:150px}
+.rbx19 .item-card-thumb-container{position:relative;width:150px!important;height:150px!important;border-bottom:1px solid #e3e3e3;background:#f2f2f2;overflow:hidden}
+.rbx19 .item-card-thumb{width:150px!important;height:150px!important;object-fit:cover;display:block;border:0}
+.rbx19 .item-card-caption{padding-top:6px;width:150px}
+.rbx19 .item-card-name-link{display:block}
+.rbx19 .item-card-name{height:40px;overflow:hidden;font-weight:500;padding:0 5px;font-size:16px;line-height:1.25;color:#191919}
+.rbx19 .item-card-price{padding:0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
+.rbx19 .font-header-2{font-size:16px;font-weight:500}
+.rbx19 .text-subheader{color:#757575}
+.rbx19 .text-robux-tile{color:#02b757!important;font-weight:500}
+.rbx19 .item-card-price .icon-robux{display:inline-block;width:16px;height:16px;background:url(/img/img-robux.png) no-repeat center;background-size:contain;vertical-align:middle;margin:0 4px 0 0}
 .rbx19 .item-card-thumb-container .icon-limited-label{position:absolute;left:0;bottom:0;width:48px;height:16px;background:url(/img/CatalogOverlays/Limited.png) no-repeat;background-size:contain}
 .rbx19 .item-card-thumb-container .icon-limited-unique-label{position:absolute;left:0;bottom:0;width:64px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
 .rbx19 .status-new{position:absolute;top:6px;right:6px;background:#f68802;color:#fff;font-size:10px;padding:4px;border-radius:3px}
 .rbx19-empty{text-align:center;padding:24px;color:#757575}
-.rbx19-pagerwrap{margin-top:16px;max-width:320px;margin-left:auto;margin-right:auto}
-.rbx19-pagerwrap button{height:32px;border:1px solid #777;background:linear-gradient(0deg,#e0e0e0 0%,#fff 100%);cursor:pointer}
-.rbx19-pagerwrap button:disabled{opacity:.5;cursor:default}
+.rbx19 .pager{list-style:none;margin:20px 0 0;padding:0;text-align:center}
+.rbx19 .pager li{display:inline-block;vertical-align:middle;margin:0 6px}
+.rbx19 .pager a,.rbx19 .pager button{display:inline-block;width:32px;height:32px;padding:0;border:1px solid #b8b8b8;border-radius:3px;background:#fff;cursor:pointer}
+.rbx19 .pager .disabled a,.rbx19 .pager .disabled button{opacity:.35;cursor:default}
+.rbx19 .pager .page-label{font-size:16px;color:#191919}
+.rbx19-chev{display:inline-block;width:0;height:0;margin-top:11px;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.rbx19-chev-l{border-right:6px solid #00a2ff;margin-left:11px}
+.rbx19-chev-r{border-left:6px solid #00a2ff;margin-left:13px}
 .rbx19-dim{opacity:.45}
 `;
 
@@ -173,6 +181,19 @@ const applyNav = (store, category, subCategory) => {
   store.setSubCategory(subCategory || "");
 };
 
+const BLOCKED_TYPE_NUMS = [1, 3, 4, 5, 6, 7, 9, 10, 13, 21, 22, 24, 34, 38, 39, 40, 61, 62];
+const BLOCKED_TYPE_NAMES = ["video", "audio", "place", "model", "plugin", "image", "decal", "mesh", "lua", "animation", "badge", "gamepass"];
+
+const isWearableCatalogItem = (item) => {
+  const t = item.assetType;
+  const name = String(t == null ? "" : t).toLowerCase();
+  if (BLOCKED_TYPE_NAMES.indexOf(name) !== -1) return false;
+  if (typeof t === "number" && BLOCKED_TYPE_NUMS.indexOf(t) !== -1) return false;
+  const limited = item.itemRestrictions && (item.itemRestrictions.indexOf("Limited") !== -1 || item.itemRestrictions.indexOf("LimitedUnique") !== -1);
+  if (!item.isForSale && !limited) return false;
+  return true;
+};
+
 const ItemCard = (props) => {
   const thumbs = thumbnailStore.useContainer();
   const [image, setImage] = useState(thumbs.getPlaceholder());
@@ -216,8 +237,10 @@ const ItemCard = (props) => {
             </div>
           </div>
           <div className="item-card-caption">
-            <div className="item-card-name" title={props.name}>{props.name}</div>
-            <div className="item-card-price">{price}</div>
+            <div className="item-card-name-link">
+              <div className="item-card-name" title={props.name}>{props.name}</div>
+            </div>
+            <div className="text-overflow item-card-price font-header-2 text-subheader">{price}</div>
           </div>
         </a>
       </NextLink>
@@ -247,7 +270,7 @@ const CatalogInner = () => {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
   const sortLabel = (SORTS.find((s) => s.key === store.sort) || SORTS[0]).label;
-  const items = store.results && store.results.data ? store.results.data : [];
+  const items = store.results && store.results.data ? store.results.data.filter(isWearableCatalogItem) : [];
   const applySearch = (e) => {
     if (e) {
       e.preventDefault();
