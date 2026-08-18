@@ -23,7 +23,7 @@ const CATALOG_CSS = `
 .rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:0;cursor:pointer;font-size:16px}
 .rbx19-menu button:hover{background:#00a2ff;color:#fff}
 .rbx19-searchbtn{display:flex;align-items:center;justify-content:center;height:38px;width:38px;padding:0;background:#00a2ff;border:1px solid #00a2ff;cursor:pointer;border-radius:0 3px 3px 0}
-.rbx19-searchbtn .icon-search{display:inline-block;width:20px;height:20px;background-image:url(/img/generic_01312019.svg);background-repeat:no-repeat;background-size:40px auto;background-position:-20px -20px}
+.rbx19-icon-search{display:block!important;width:28px!important;height:28px!important;background-image:url(/img/generic_01312019.svg)!important;background-repeat:no-repeat!important;background-size:56px auto!important;background-position:-28px -28px!important}
 .rbx19-body{display:flex;align-items:flex-start}
 .rbx19-side{width:160px;flex:0 0 160px;padding-right:12px;border-right:1px solid #b8b8b8}
 .rbx19-side h3{margin:0 0 8px;font-size:20px;font-weight:700}
@@ -319,7 +319,13 @@ const CatalogInner = () => {
                 </div>
               ) : null}
             </div>
-            <button type="button" className="rbx19-searchbtn" onClick={applySearch}><span className="rbx19-searchicon"></span></button>
+            <button type="button" className="rbx19-searchbtn" onClick={applySearch} aria-label="Search">
+              <svg viewBox="0 28 28 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="#fff" d="M12,49c-5,0-9-4-9-9s4-9,9-9s9,4,9,9S17,49,12,49z M12,33c-3.9,0-7,3.1-7,7s3.1,7,7,7s7-3.1,7-7S15.9,33,12,33z" />
+                <path fill="#fff" d="M24,53c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l6,6c0.4,0.4,0.4,1,0,1.4C24.5,52.9,24.3,53,24,53z" />
+                <path fill="#fff" d="M16,41c-0.6,0-1-0.4-1-1c0-1.7-1.3-3-3-3c-0.6,0-1-0.4-1-1s0.4-1,1-1c2.8,0,5,2.2,5,5C17,40.6,16.6,41,16,41z" />
+              </svg>
+            </button>
           </div>
         </div>
         <a className="rbx19-buy" href="/BuildersClub/Upgrade.ashx">Buy Robux</a>
