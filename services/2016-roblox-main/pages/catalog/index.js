@@ -22,8 +22,7 @@ const CATALOG_CSS = `
 .rbx19-menu{position:absolute;z-index:400;left:0;top:100%;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:320px;overflow:auto}
 .rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:0;cursor:pointer;font-size:16px}
 .rbx19-menu button:hover{background:#00a2ff;color:#fff}
-.rbx19-searchbtn{display:flex;align-items:center;justify-content:center;height:38px;width:38px;padding:0;background:#00a2ff;border:1px solid #00a2ff;cursor:pointer;border-radius:0 3px 3px 0}
-.rbx19-icon-search{display:block!important;width:28px!important;height:28px!important;background-image:url(/img/generic_01312019.svg)!important;background-repeat:no-repeat!important;background-size:56px auto!important;background-position:-28px -28px!important}
+.rbx19-searchbtn{height:38px;width:38px;padding:0;border:1px solid #00a2ff;border-radius:0 3px 3px 0;cursor:pointer;background-color:#00a2ff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3Cline x1='16.5' y1='16.5' x2='22' y2='22' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:20px 20px}
 .rbx19-body{display:flex;align-items:flex-start}
 .rbx19-side{width:160px;flex:0 0 160px;padding-right:12px;border-right:1px solid #b8b8b8}
 .rbx19-side h3{margin:0 0 8px;font-size:20px;font-weight:700}
@@ -72,6 +71,20 @@ const CATALOG_CSS = `
 .rbx19 .pager .disabled a,.rbx19 .pager .disabled a:hover{cursor:default;background:#f2f2f2;border-color:#e3e3e3}
 .rbx19 .pager .disabled .icon-back,.rbx19 .pager .disabled .icon-next{background-color:#f2f2f2}
 .rbx19-dim{opacity:.45}
+@media (max-width:767px){
+.rbx19{padding:8px 4px 32px}
+.rbx19-heading{font-size:24px}
+.rbx19-buy{display:none}
+.rbx19-search{width:100%;justify-content:stretch}
+.rbx19-ig{width:100%}
+.rbx19-input{flex:1;width:auto;min-width:0}
+.rbx19-side{display:none}
+.rbx19-main{padding-left:0}
+.rbx19 .item-cards-stackable .item-card{width:50%!important;padding:4px}
+.rbx19 .item-card-container,.rbx19 .item-card-link,.rbx19 .item-card-caption{width:100%!important;max-width:100%!important}
+.rbx19 .item-card-link{height:auto!important}
+.rbx19 .item-card-thumb-container,.rbx19 .item-card-thumb{width:100%!important;height:auto!important;max-width:none!important;aspect-ratio:1/1}
+}
 `;
 
 const NAV = [
@@ -319,13 +332,7 @@ const CatalogInner = () => {
                 </div>
               ) : null}
             </div>
-            <button type="button" className="rbx19-searchbtn" onClick={applySearch} aria-label="Search">
-              <svg viewBox="0 28 28 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path fill="#fff" d="M12,49c-5,0-9-4-9-9s4-9,9-9s9,4,9,9S17,49,12,49z M12,33c-3.9,0-7,3.1-7,7s3.1,7,7,7s7-3.1,7-7S15.9,33,12,33z" />
-                <path fill="#fff" d="M24,53c-0.3,0-0.5-0.1-0.7-0.3l-6-6c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l6,6c0.4,0.4,0.4,1,0,1.4C24.5,52.9,24.3,53,24,53z" />
-                <path fill="#fff" d="M16,41c-0.6,0-1-0.4-1-1c0-1.7-1.3-3-3-3c-0.6,0-1-0.4-1-1s0.4-1,1-1c2.8,0,5,2.2,5,5C17,40.6,16.6,41,16,41z" />
-              </svg>
-            </button>
+            <button type="button" className="rbx19-searchbtn" onClick={applySearch} aria-label="Search"></button>
           </div>
         </div>
         <a className="rbx19-buy" href="/BuildersClub/Upgrade.ashx">Buy Robux</a>
@@ -415,6 +422,43 @@ const CatalogInner = () => {
             </div>
           </div>
           <div className={store.locked ? "rbx19-dim" : ""}>
+            {store.results && items.length === 0 ? <div className="rbx19-empty">No items found.</div> : null}
+            <ul className="hlist item-cards-stackable">
+              {items.map((v) => <ItemCard key={v.id} {...v} />)}
+            </ul>
+          </div>
+          <div className="rbx-pager">
+            <ul className="pager">
+              <li className={store.page <= 1 || store.locked ? "pager-prev disabled" : "pager-prev"}>
+                <a href="#" onClick={pageClick(-1)}><span className="icon-back"></span></a>
+              </li>
+              <li><span className="page-label">Page {store.page}</span></li>
+              <li className={store.locked || (!store.nextCursor && items.length < store.limit) ? "pager-next disabled" : "pager-next"}>
+                <a href="#" onClick={pageClick(1)}><span className="icon-next"></span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const CatalogPage = () => {
+  return (
+    <CatalogPageStore.Provider>
+      <style>{CATALOG_CSS}</style>
+      <CatalogInner />
+    </CatalogPageStore.Provider>
+  );
+};
+
+CatalogPage.getInitialProps = () => {
+  return { title: "Catalog - ROBLOX" };
+};
+
+export default CatalogPage;
+dim" : ""}>
             {store.results && items.length === 0 ? <div className="rbx19-empty">No items found.</div> : null}
             <ul className="hlist item-cards-stackable">
               {items.map((v) => <ItemCard key={v.id} {...v} />)}
