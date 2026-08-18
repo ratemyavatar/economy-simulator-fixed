@@ -5,30 +5,31 @@ import thumbnailStore from "../../stores/thumbnailStore";
 import { getItemUrl } from "../../services/catalog";
 
 const CATALOG_CSS = `
-.rbx19{max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px}
+.rbx19{max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px;overflow:visible}
 .rbx19 *{box-sizing:border-box}
-.rbx19-top{overflow:hidden;margin-bottom:10px}
-.rbx19-heading{float:left;margin:0;padding:0;font-size:32px;font-weight:800;line-height:38px}
+.rbx19 button{appearance:none;-webkit-appearance:none;margin:0;font-family:inherit;line-height:1}
+.rbx19-top{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;overflow:visible;position:relative;z-index:50}
+.rbx19-heading{margin:0;padding:0;font-size:32px;font-weight:800;line-height:38px;flex:0 0 auto}
 .rbx19-heading a{color:#191919;text-decoration:none}
-.rbx19-buy{float:right;background:#00b06f;color:#fff!important;border-radius:3px;padding:9px 16px;font-size:16px;font-weight:500;text-decoration:none;line-height:1.2em;margin-left:8px}
+.rbx19-buy{flex:0 0 auto;background:#00b06f;color:#fff!important;border-radius:3px;padding:9px 16px;font-size:16px;font-weight:500;text-decoration:none;line-height:1.2em;white-space:nowrap}
 .rbx19-buy:hover{background:#00965e;color:#fff!important}
-.rbx19-search{float:right;margin:0 10px 9px 0}
-.rbx19-ig{display:flex;align-items:stretch}
-.rbx19-input{width:300px;height:38px;border:1px solid #b8b8b8;border-right:0;border-radius:3px 0 0 3px;padding:5px 12px;font-size:16px;font-weight:300;color:#191919;background:#fff}
+.rbx19-search{flex:1 1 auto;display:flex;justify-content:flex-end;min-width:0;overflow:visible}
+.rbx19-ig{display:flex;align-items:center;height:38px}
+.rbx19-input{width:260px;height:38px;border:1px solid #b8b8b8;border-right:0;border-radius:3px 0 0 3px;padding:0 12px;font-size:16px;font-weight:300;color:#191919;background:#fff;line-height:38px}
 .rbx19-input:focus{border-color:#00a2ff;outline:none}
-.rbx19-ddwrap{position:relative}
-.rbx19-ddbtn{height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;min-width:160px;width:200px;text-align:left;cursor:pointer}
+.rbx19-ddwrap{position:relative;height:38px;overflow:visible}
+.rbx19-ddbtn{display:flex;align-items:center;justify-content:space-between;height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;width:180px;text-align:left;cursor:pointer;line-height:1}
 .rbx19-ddbtn:disabled{opacity:.5;cursor:not-allowed}
-.rbx19-ddbtn span{display:inline-block;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}
-.rbx19-caret{float:right;margin-top:16px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919}
-.rbx19-menu{display:block;position:absolute;z-index:200;left:0;top:38px;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;list-style:none;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:338px;overflow:auto}
+.rbx19-ddbtn span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 auto;padding-right:8px}
+.rbx19-caret{display:block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919;flex:0 0 auto}
+.rbx19-menu{display:block;position:absolute;z-index:400;left:0;top:100%;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;list-style:none;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:338px;overflow:auto}
 .rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;color:#191919;background:transparent;border:0;cursor:pointer;font-size:16px}
 .rbx19-menu button:hover{background:#00a2ff;color:#fff}
-.rbx19-searchbtn{height:38px;width:38px;background:#00a2ff;border:1px solid #00a2ff;color:#fff;cursor:pointer}
+.rbx19-searchbtn{display:flex;align-items:center;justify-content:center;height:38px;width:38px;padding:0;background:#00a2ff;border:1px solid #00a2ff;color:#fff;cursor:pointer;border-radius:0 3px 3px 0;flex:0 0 38px}
 .rbx19-searchbtn:disabled{opacity:.5;cursor:not-allowed}
-.rbx19-searchicon{display:inline-block;width:14px;height:14px;border:2px solid #fff;border-radius:50%;position:relative}
-.rbx19-searchicon:after{content:"";position:absolute;width:6px;height:2px;background:#fff;right:-5px;bottom:-1px;transform:rotate(45deg)}
-.rbx19-body{display:flex;align-items:flex-start;clear:both}
+.rbx19-searchicon{display:block;width:12px;height:12px;border:2px solid #fff;border-radius:50%;position:relative;box-sizing:content-box}
+.rbx19-searchicon:after{content:"";position:absolute;width:6px;height:2px;background:#fff;right:-4px;bottom:0;transform:rotate(45deg)}
+.rbx19-body{display:flex;align-items:flex-start}
 .rbx19-side{width:160px;flex:0 0 160px;padding-right:12px;border-right:1px solid #b8b8b8}
 .rbx19-side h3{margin:0 0 8px;font-size:20px;font-weight:700}
 .rbx19-panel{margin:0 0 6px;list-style:none;padding:0}
@@ -43,10 +44,10 @@ const CATALOG_CSS = `
 .rbx19-filters label{display:block;font-size:13px;font-weight:400;margin:3px 0;cursor:pointer;color:#191919}
 .rbx19-filters input{margin-right:6px}
 .rbx19-allg{background:none;border:0;padding:0 0 6px;color:#0055b3;cursor:pointer;font-weight:600;font-size:13px}
-.rbx19-main{flex:1;min-width:0;padding-left:8px}
-.rbx19-crumbs{margin:6px 0 12px;padding-left:6px;min-height:38px;position:relative;z-index:20}
-.rbx19-crumb{float:left;color:#00a2ff;font-weight:500;font-size:16px;line-height:38px}
-.rbx19-sorts{float:right;position:relative;z-index:30}
+.rbx19-main{flex:1;min-width:0;padding-left:8px;overflow:visible}
+.rbx19-crumbs{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px;padding-left:6px;min-height:38px;position:relative;z-index:30;overflow:visible}
+.rbx19-crumb{color:#00a2ff;font-weight:500;font-size:16px;line-height:38px}
+.rbx19-sorts{position:relative;z-index:40;overflow:visible}
 .rbx19-cards{list-style:none;margin:0 -5px;padding:0;overflow:hidden}
 .rbx19-card{float:left;width:20%;padding:5px}
 .rbx19-card a{display:block;position:relative;background:#fff;max-width:150px;margin:0 auto;padding:0 0 5px;color:#191919;text-decoration:none}
@@ -302,7 +303,6 @@ const CatalogInner = () => {
         <h1 className="rbx19-heading">
           <a href="/catalog" onClick={(e) => { e.preventDefault(); applyNav(store, "Featured", ""); setOpenPanel("Featured"); setCatLabel("Featured"); }}>Catalog</a>
         </h1>
-        <a className="rbx19-buy" href="/BuildersClub/Upgrade.ashx">Buy Robux</a>
         <div className="rbx19-search">
           <div className="rbx19-ig">
             <input
@@ -318,7 +318,6 @@ const CatalogInner = () => {
               <button
                 type="button"
                 className="rbx19-ddbtn"
-                disabled={store.locked}
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -337,11 +336,12 @@ const CatalogInner = () => {
                 </div>
               ) : null}
             </div>
-            <button type="button" className="rbx19-searchbtn" disabled={store.locked} onClick={applySearch}>
+            <button type="button" className="rbx19-searchbtn" onClick={applySearch}>
               <span className="rbx19-searchicon"></span>
             </button>
           </div>
         </div>
+        <a className="rbx19-buy" href="/BuildersClub/Upgrade.ashx">Buy Robux</a>
       </div>
       <div className="rbx19-body">
         <div className="rbx19-side">
