@@ -5,90 +5,124 @@ import thumbnailStore from "../../stores/thumbnailStore";
 import { getItemUrl } from "../../services/catalog";
 
 const CATALOG_CSS = `
-.rbx19{max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px;background:#e3e3e3}
+.rbx19{--primary-color:#00a2ff;--white-color:#fff;--white-color-hover:#f2f2f2;--text-color-primary:#191919;--text-color-secondary:#b8b8b8;--text-color-tertiary:#757575;--text-color-quinary:#c3c3c3;--robux-color:#02b757;--background-color:#e3e3e3;max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px;background:#e3e3e3}
 .rbx19 *{box-sizing:border-box}
-.rbx19 button{appearance:none;-webkit-appearance:none;margin:0;font-family:inherit;line-height:1}
-.rbx19-top{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;position:relative;z-index:50}
-.rbx19-heading{margin:0;padding:0;font-size:32px;font-weight:800;line-height:38px}
-.rbx19-heading a{color:#191919;text-decoration:none}
-.rbx19-buy{background:#00b06f;color:#fff!important;border-radius:3px;padding:9px 16px;font-size:16px;font-weight:500;text-decoration:none;white-space:nowrap}
-.rbx19-search{flex:1 1 auto;display:flex;justify-content:flex-end}
-.rbx19-ig{display:flex;align-items:center;height:38px}
-.rbx19-input{width:240px;height:38px;border:1px solid #b8b8b8;border-right:0;border-radius:3px 0 0 3px;padding:0 12px;font-size:16px;background:#fff}
-.rbx19-ddwrap{position:relative;height:38px}
-.rbx19-ddbtn{display:flex;align-items:center;justify-content:space-between;height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;width:170px;cursor:pointer}
-.rbx19-ddbtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;padding-right:8px}
-.rbx19-caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919;flex:0 0 auto}
-.rbx19-menu{position:absolute;z-index:400;left:0;top:100%;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:320px;overflow:auto}
-.rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:0;cursor:pointer;font-size:16px}
-.rbx19-menu button:hover{background:#00a2ff;color:#fff}
-.rbx19-searchbtn{height:38px;width:38px;padding:0;border:1px solid #00a2ff;border-radius:0 3px 3px 0;cursor:pointer;background-color:#00a2ff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3Cline x1='16.5' y1='16.5' x2='22' y2='22' stroke='%23ffffff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:20px 20px}
-.rbx19-body{display:flex;align-items:flex-start}
-.rbx19-side{width:160px;flex:0 0 160px;padding-right:12px;border-right:1px solid #b8b8b8}
-.rbx19-side h3{margin:0 0 8px;font-size:20px;font-weight:700}
-.rbx19-panel{margin:0;padding:0;list-style:none}
-.rbx19-catbtn{display:block;width:100%;text-align:left;background:transparent;border:0;padding:6px 0;color:#757575;font-size:16px;cursor:pointer}
-.rbx19-catbtn:hover,.rbx19-catbtn.is-on{color:#00a2ff}
-.rbx19-plus{float:right}
-.rbx19-subs{list-style:none;margin:0;padding:0 0 4px 12px}
-.rbx19-subs button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:4px 0;color:#757575;font-size:14px;cursor:pointer}
-.rbx19-subs button:hover,.rbx19-subs button.is-on{color:#00a2ff}
-.rbx19-filters{border-top:1px solid #b8b8b8;margin-top:8px;padding-top:10px}
-.rbx19-filters h4{margin:0 0 6px;font-size:16px;font-weight:700}
-.rbx19-filters label{display:block;font-size:13px;margin:3px 0;cursor:pointer}
-.rbx19-allg{background:none;border:0;padding:0 0 6px;color:#0055b3;cursor:pointer;font-weight:600;font-size:13px}
-.rbx19-main{flex:1;min-width:0;padding-left:8px}
-.rbx19-crumbs{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px;min-height:38px;position:relative;z-index:30}
-.rbx19-crumb{color:#00a2ff;font-weight:500;font-size:16px}
-.rbx19 .hlist.item-cards-stackable{width:100%;overflow:hidden;margin:0;padding:0;list-style:none;font-size:0}
-.rbx19 .item-cards-stackable .item-card{float:none;display:inline-block;vertical-align:top;padding:5px;width:20%;font-size:16px}
-.rbx19 .item-card-container{display:block;width:100%;margin:0;padding:0;background:#fff;color:#191919;text-decoration:none;border:1px solid #b8b8b8}
-.rbx19 .item-card-link,.rbx19 .item-card-name-link{display:block}
-.rbx19 .item-card-thumb-container{position:relative;width:100%;height:0;padding-bottom:100%;border-bottom:1px solid #e3e3e3;background:#f2f2f2;overflow:hidden}
-.rbx19 .item-card-thumb-container .item-card-thumb{transition:opacity .5s;position:absolute;left:0;top:0;width:100%;height:100%;min-width:85px;min-height:85px;opacity:1;object-fit:cover;display:block;border:0}
-.rbx19 .item-cards-stackable .item-card-caption{padding:6px 6px 0}
-.rbx19 .item-card-name{height:45px;overflow:hidden;white-space:normal;font-weight:500;padding:0;font-size:16px;line-height:1.25;color:#191919}
-.rbx19 .item-cards-stackable .item-card-price{width:100%;height:22px;font-size:16px;margin-top:20px;padding:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rbx19 .item-card-price .text-overflow{display:inline-block;width:100%}
-.rbx19 .font-header-2{font-size:16px;font-weight:500}
-.rbx19 .text-subheader{color:#757575}
-.rbx19 .text-robux,.rbx19 .text-robux-tile{color:#02b757;font-weight:500;float:left}
-.rbx19 .item-cards-stackable .item-card-price .icon-robux{display:inline-block;float:left;width:16px;height:16px;background-image:url(/img/branded_04182018.svg);background-repeat:no-repeat;background-size:32px auto;background-position:0 -64px;margin:2px 3px 0 0}
-.rbx19 .item-card-thumb-container .icon-limited-label{position:absolute;left:0;bottom:0;width:48px;height:16px;background:url(/img/CatalogOverlays/Limited.png) no-repeat;background-size:contain}
-.rbx19 .item-card-thumb-container .icon-limited-unique-label{position:absolute;left:0;bottom:0;width:64px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
-.rbx19 .status-new{position:absolute;top:6px;right:6px;background:#f68802;color:#fff;font-size:10px;padding:4px;border-radius:3px}
-.rbx19-empty{text-align:center;padding:24px;color:#757575}
-.rbx19 .rbx-pager{text-align:center}
-.rbx19 .pager{padding-left:0;margin:20px 0;list-style:none;text-align:center;display:inline-block}
-.rbx19 .pager:after,.rbx19 .pager:before{content:" ";display:table}
-.rbx19 .pager:after{clear:both}
-.rbx19 .pager li{float:left}
-.rbx19 .pager li a{margin:0 9px 0 0;height:32px;width:32px;color:#191919;text-align:center;padding:3px 0 0}
-.rbx19 .pager li span{border:0;padding:5px 5px 0 0;display:inline-block}
-.rbx19 .pager .pager-next,.rbx19 .pager .pager-prev{user-select:none}
-.rbx19 .pager .pager-next a,.rbx19 .pager .pager-prev a{margin-left:0;background-color:#fff;border:1px solid #b8b8b8;border-radius:3px;display:inline-block}
-.rbx19 .pager .pager-next a:hover,.rbx19 .pager .pager-prev a:hover,.rbx19 .pager .pager-next a:hover span,.rbx19 .pager .pager-prev a:hover span{background-color:#f2f2f2}
-.rbx19 .pager .pager-next a span,.rbx19 .pager .pager-prev a span{background-color:#fff;background-image:url(/img/generic_01312019.svg);background-repeat:no-repeat;background-size:40px auto;width:20px;height:20px}
-.rbx19 .pager .pager-prev span{background-position:0 -300px}
-.rbx19 .pager .pager-next span{background-position:0 -280px}
-.rbx19 .pager .disabled>a,.rbx19 .pager .disabled>a:hover{cursor:default;background-color:#f2f2f2;border:1px solid #e3e3e3}
-.rbx19 .pager .disabled>a span,.rbx19 .pager .disabled>a:hover span{background-color:#f2f2f2}
+.rbx19 a{color:inherit;text-decoration:none}
+.rbx19 button{appearance:none;-webkit-appearance:none;margin:0;font-family:inherit}
+.rbx19 .flex{display:flex;flex-wrap:wrap}
+.rbx19 .flex-column{flex-direction:column}
+.rbx19 .w-100{width:100%!important}
+.rbx19 .w-fit-content{width:fit-content}
+.rbx19 .justify-content-between{justify-content:space-between!important}
+.rbx19 .justify-content-end{justify-content:flex-end!important}
+.rbx19 .justify-content-center{justify-content:center!important}
+.rbx19 .align-items-center{align-items:center!important}
+.rbx19 .position-relative{position:relative!important}
+.rbx19 .inherit-color,.rbx19 .inherit-color *{color:inherit}
+.rbx19 .inherit-font-size{font-size:inherit}
+.rbx19 .display-none{display:none}
+.rbx19 .text-overflow-2{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box!important}
+.rbx19 .inputTextStyle{border:1px solid var(--text-color-secondary);color:var(--text-color-primary);font-weight:300;font-size:16px;height:38px;line-height:100%;padding:5px 12px;appearance:none;display:block;width:100%;background-color:var(--white-color);border-radius:3px;outline:none}
+.rbx19 .catalogHeader-0-2-225{width:100%}
+.rbx19 .catalogHeader-0-2-225 h1{margin:0;font-size:36px;font-weight:800}
+.rbx19 .search-0-2-236{align-items:center}
+.rbx19 .searchWrapper-0-2-233{width:300px;display:flex}
+.rbx19 .inputStyle-0-2-230{color:var(--text-color-primary);width:100%;font-weight:500;border-top-right-radius:0;border-bottom-right-radius:0}
+.rbx19 .selectorWrapper-0-2-231{width:200px;position:relative}
+.rbx19 .selector-0-2-232{padding:5px 12px;border-left:none;border-color:var(--text-color-secondary);border-radius:0}
+.rbx19 .selector-0-2-232 *{font-weight:500;line-height:26px}
+.rbx19 .searchButton-0-2-234{padding:4px;border-left:0;border-top-left-radius:0;border-bottom-left-radius:0;cursor:pointer}
+.rbx19 .newCancelButton-0-2-148{height:auto;display:inline-block;padding:9px;font-size:18px;background:var(--white-color);text-align:center;font-weight:500;line-height:100%;user-select:none;white-space:nowrap;border-radius:3px;vertical-align:middle;color:var(--text-color-primary)!important;border:1px solid var(--text-color-secondary)!important}
+.rbx19 .icon-default-generic,.rbx19 .icon-search,.rbx19 .icon-menu,.rbx19 .icon-plus,.rbx19 .icon-minus,.rbx19 .icon-close,.rbx19 .icon-back,.rbx19 .icon-next{background-repeat:no-repeat;display:inline-block;vertical-align:middle}
+.rbx19 .icon-search,.rbx19 .icon-menu,.rbx19 .icon-close{background-image:url(/img/generic_03112016.svg);background-size:auto;width:28px;height:28px}
+.rbx19 .icon-search{background-position:0 -28px}
+.rbx19 .icon-menu{background-position:0 -364px}
+.rbx19 .icon-close{background-position:0 -588px}
+.rbx19 .icon-plus,.rbx19 .icon-minus{background-image:url(/img/generic-2019.svg);width:12px;height:12px;background-size:24px}
+.rbx19 .icon-plus{background-position:0 -660px}
+.rbx19 .icon-minus{background-position:0 -672px}
+.rbx19 .icon-plus:hover{background-position:-12px -660px}
+.rbx19 .icon-minus:hover{background-position:-12px -672px}
+.rbx19 .selectorClosed-0-2-243{color:var(--text-color-primary);width:100%;border:1px solid var(--text-color-quinary);cursor:pointer;padding:10px 15px;font-size:16px;background:var(--white-color);text-align:left;user-select:none;border-radius:4px}
+.rbx19 .selectorClosed-0-2-243:hover{background:var(--primary-color);color:var(--white-color)}
+.rbx19 .selectorCaret-0-2-245{float:right}
+.rbx19 .selectorMenuOpen-0-2-246{width:100%;z-index:3;position:absolute;left:0;top:100%;background:#fff;overflow-x:hidden;border-radius:4px;border:1px solid var(--text-color-secondary);box-shadow:0 2px 4px rgba(0,0,0,.15)}
+.rbx19 .selectOption-0-2-247{cursor:pointer;padding:10px 15px;font-size:16px;user-select:none;margin-bottom:0;width:100%;background:transparent;border:0;text-align:left;color:var(--text-color-primary)}
+.rbx19 .selectOption-0-2-247:hover{box-shadow:inset 4px 0 0 0 var(--primary-color);background-color:var(--white-color-hover)}
+.rbx19 .catalogContainer-0-2-226{align-items:flex-start}
+.rbx19 .searchOptionsContainer-0-2-223{width:160px;border-right:1px solid var(--text-color-secondary);margin-right:12px}
+.rbx19 .searchResultsContainer-0-2-224{width:calc(100% - 172px)}
+.rbx19 .searchOptionWrapper-0-2-265{margin:0 12px 0 0;border-bottom:1px solid rgb(184,184,184)}
+.rbx19 .searchOptionHeader-0-2-266{padding:5px 0;font-size:20px;font-weight:700;line-height:1em;margin:0}
+.rbx19 .searchOptionHeaderContainer-0-2-267{margin-bottom:4px}
+.rbx19 .categoryWrapper-0-2-268{padding-bottom:12px}
+.rbx19 .categoryContainer-0-2-269{margin-bottom:6px}
+.rbx19 .categoryContainer-0-2-269 a{font-size:12px;font-weight:400}
+.rbx19 .subCategoryContainer-0-2-270{padding-left:12px}
+.rbx19 .subCategoryWrapper-0-2-271{font-size:16px;line-height:1.4em}
+.rbx19 .subCategoryWrapper-0-2-271>a{width:100%;display:inline-flex;align-items:center;justify-content:space-between;cursor:pointer;border:0;background:transparent;padding:0;font:inherit}
+.rbx19 .collapse-0-2-272{height:0;overflow:hidden;flex-direction:column}
+.rbx19 .collapse-0-2-272.in{height:auto;display:flex}
+.rbx19 .link2019-gray{color:var(--text-color-tertiary)!important}
+.rbx19 .link2019-gray:hover,.rbx19 .link2019-gray.is-on{color:var(--primary-color)!important}
+.rbx19 .searchOptionWrapper-0-2-275{margin:0 12px 0 0;border-bottom:1px solid rgb(184,184,184);padding-bottom:12px}
+.rbx19 .filterHeader-0-2-277{margin:0;padding:9px 0 0;font-size:16px;font-weight:500}
+.rbx19 .genreCheckbox-0-2-280{font-size:16px;margin-top:2px;font-weight:500;line-height:1.4em}
+.rbx19 .genreCheckbox-0-2-280 *{font-size:12px;font-weight:400}
+.rbx19 .allGenres-0-2-281{color:var(--text-color-primary);font-size:12px;font-weight:400;line-height:2.4em;background:none;border:0;padding:0;cursor:pointer}
+.rbx19 .allGenres-0-2-281:hover{text-decoration:underline!important}
+.rbx19 .checkbox2019 input[type=checkbox]{position:absolute;opacity:0;left:-9999px}
+.rbx19 .checkbox2019 input[type=checkbox]+label{user-select:none;display:inline-block;width:100%;height:16px;padding-left:20px;vertical-align:middle;cursor:pointer;line-height:16px;position:relative}
+.rbx19 .checkbox2019 label::before{content:" ";display:inline-block;width:16px;height:16px;position:absolute;left:0;top:0;background-color:var(--white-color);border:1px solid var(--text-color-secondary);border-radius:3px}
+.rbx19 .checkbox2019 input[type=checkbox]:checked+label::before{background-image:url(/img/generic-2019.svg);background-repeat:no-repeat;background-size:28px;background-position:0 -602px;background-color:var(--primary-color);border-color:var(--primary-color)}
+.rbx19 .breadcrumbsContainer-0-2-251{margin:6px 0 12px;padding-left:6px}
+.rbx19 .selectorWrapper-0-2-252{width:230px;position:relative}
+.rbx19 .selector-0-2-253{padding:5px 12px;line-height:18px}
+.rbx19 .resultsContainer-0-2-255{gap:9.6px;min-width:60px}
+.rbx19 .cardWrapper-0-2-284{width:calc(16.6667% - 8px);display:flex;border-radius:3px;flex-direction:column}
+.rbx19 .cardContainer-0-2-285{width:100%;height:100%;display:flex;position:relative;border-radius:3px;flex-direction:column;background-color:var(--white-color);transition:box-shadow 200ms;box-shadow:rgba(25,25,25,.3) 0 1px 4px 0}
+.rbx19 .cardContainer-0-2-285:hover{box-shadow:rgba(25,25,25,.75) 0 1px 6px 0}
+.rbx19 .cardImage-0-2-286{width:100%;cursor:pointer;position:relative;aspect-ratio:1/1;border-bottom:1px solid rgb(227,227,227);border-top-left-radius:3px;border-top-right-radius:3px;overflow:hidden;background:#f2f2f2}
+.rbx19 .cardImage-0-2-286 img{width:100%;height:auto;min-width:85px;min-height:100%;border-top-left-radius:3px;border-top-right-radius:3px;display:block}
+.rbx19 .cardItemLink-0-2-287{width:100%;display:inline-block;padding:6px 6px 0;line-height:16px}
+.rbx19 .cardItemLink-0-2-287 span{height:auto!important;display:inline-block;padding:0;font-size:14px;max-width:100%;line-height:1.4em}
+.rbx19 .cardItemLinkHeight-0-2-288{height:50px}
+.rbx19 .restrictionsContainer-0-2-290{left:-2px;bottom:-1px;overflow:hidden;position:absolute}
+.rbx19 .icon-limited-label,.rbx19 .icon-limited-unique-label{background-image:url(/img/icon_labels.svg);background-repeat:no-repeat;background-size:auto;height:18px;display:inline-block;vertical-align:middle}
+.rbx19 .icon-limited-label{width:60px;background-position:0 -54px}
+.rbx19 .icon-limited-unique-label{width:80px;background-position:0 -126px}
+.rbx19 .text-0-2-292{padding:0 5px}
+.rbx19 .currencyIcon-0-2-293{margin-top:1px;margin-right:2px}
+.rbx19 .currencyText-0-2-294{font-weight:500}
+.rbx19 .icon-robux-16x16{background-image:url(/img/branded.svg);background-repeat:no-repeat;background-size:200%;width:16px;height:16px;display:inline-block;vertical-align:middle;background-position:0 -64px}
+.rbx19 .text-robux{color:var(--robux-color)}
+.rbx19 .text-free{color:var(--text-color-tertiary)}
+.rbx19 .itemStatusContainer-0-2-296{gap:4px;top:0;right:0;margin:6px;display:flex;position:absolute}
+.rbx19 .itemStatusNew-0-2-298{padding:6px 5px;background-color:rgb(255,141,0);color:#fff;font-size:10px;font-weight:500;line-height:1em;border-radius:3px}
+.rbx19 .paginationContainer-0-2-256{gap:10px;width:100%;display:flex;margin-top:25px;align-items:center;justify-content:center}
+.rbx19 .paginationBtn-0-2-257{display:flex;padding:3px;aspect-ratio:1/1;background:#fff;border:1px solid var(--text-color-secondary);border-radius:3px;cursor:pointer}
+.rbx19 .paginationBtn-0-2-257 span{width:24px;height:24px;display:inline-block;vertical-align:middle;background-size:48px;background-image:url(/img/generic_03112016.svg);background-repeat:no-repeat}
+.rbx19 .backIcon-0-2-259{background-position:0 -360px!important}
+.rbx19 .forwardIcon-0-2-260{background-position:0 -336px!important}
+.rbx19 .paginationBtn-0-2-257.disabled{opacity:.45;cursor:default}
+.rbx19 .pages-0-2-258{word-spacing:.25em}
 .rbx19-dim{opacity:.45}
+.rbx19-empty{text-align:center;padding:24px;color:#757575}
 @media (max-width:991px){
-.rbx19 .item-cards-stackable .item-card{width:25%}
+.rbx19 .cardWrapper-0-2-284{width:calc(20% - 8px)}
 }
 @media (max-width:767px){
-.rbx19{padding:8px 4px 32px}
-.rbx19-heading{font-size:24px}
-.rbx19-buy{display:none}
-.rbx19-search{width:100%;justify-content:stretch}
-.rbx19-ig{width:100%}
-.rbx19-input{flex:1;width:auto;min-width:0}
-.rbx19-side{display:none}
-.rbx19-main{padding-left:0}
-.rbx19 .item-cards-stackable .item-card{width:50%;margin-bottom:2px;padding:4px}
-.rbx19 .item-card-name{font-size:14px;height:40px}
-.rbx19 .item-cards-stackable .item-card-price{margin-top:12px}
+.rbx19 .catalogHeader-0-2-225{gap:10px;margin-bottom:20px;flex-direction:column}
+.rbx19 .searchWrapper-0-2-233{width:100%}
+.rbx19 .cardWrapper-0-2-284{width:calc(25% - 8px)}
+}
+@media (max-width:616px){
+.rbx19 .cardWrapper-0-2-284{width:calc(33% - 8px)}
+}
+@media (max-width:576px){
+.rbx19 .searchOptionsContainer-0-2-223{display:none}
+.rbx19 .searchResultsContainer-0-2-224{width:100%}
+.rbx19 .cardWrapper-0-2-284{width:calc(50% - 8px)}
 }
 `;
 
@@ -183,7 +217,7 @@ const SEARCH_CATS = [
 const GENRES = [
   { genre: 13, name: "Building" },
   { genre: 5, name: "Horror" },
-  { genre: 1, name: "Town and City" },
+  { genre: 1, name: "Town And City" },
   { genre: 11, name: "Military" },
   { genre: 9, name: "Comedy" },
   { genre: 2, name: "Medieval" },
@@ -227,45 +261,44 @@ const ItemCard = (props) => {
   const href = getItemUrl({ assetId: props.id, name: props.name });
   let price = null;
   if (props.isForSale && props.price === 0) {
-    price = <span className="text-robux-tile">Free</span>;
+    price = <span className="currencyText-0-2-294 text-free">Free</span>;
   } else if (props.isForSale && props.price !== null) {
-    price = <><span className="icon icon-robux"></span><span className="text-robux-tile">{Number(props.price).toLocaleString()}</span></>;
+    price = <><span className="icon-robux-16x16 currencyIcon-0-2-293"></span><span className="currencyText-0-2-294 text-robux">{Number(props.price).toLocaleString()}</span></>;
   } else if ((isLimited || isLimitedU) && !props.isForSale) {
-    price = <><span className="icon icon-robux"></span><span className="text-robux-tile">{Number(props.lowestPrice || props.price || 0).toLocaleString()}</span></>;
+    price = <><span className="icon-robux-16x16 currencyIcon-0-2-293"></span><span className="currencyText-0-2-294 text-robux">{Number(props.lowestPrice || props.price || 0).toLocaleString()}</span></>;
   } else {
-    price = <span>Offsale</span>;
+    price = <span className="currencyText-0-2-294 text-free">Offsale</span>;
   }
   return (
-    <li className="list-item item-card">
+    <div className="cardWrapper-0-2-284">
       <NextLink href={href}>
-        <a className="item-card-container">
-          <div className="item-card-link">
-            <div className="item-card-thumb-container">
-              {isNew ? <span className="status-new">New</span> : null}
-              <img
-                className="item-card-thumb"
-                width={126}
-                height={126}
-                alt={props.name}
-                src={image}
-                onError={(e) => {
-                  if (e.currentTarget.src !== thumbs.getPlaceholder()) {
-                    setImage(thumbs.getPlaceholder());
-                  }
-                }}
-              />
+        <a className="cardContainer-0-2-285">
+          <div className="cardImage-0-2-286">
+            <img
+              alt={props.name}
+              src={image}
+              onError={(e) => {
+                if (e.currentTarget.src !== thumbs.getPlaceholder()) {
+                  setImage(thumbs.getPlaceholder());
+                }
+              }}
+            />
+            <div className="itemStatusContainer-0-2-296">
+              {isNew ? <div className="itemStatusNew-0-2-298">New</div> : null}
+            </div>
+            <div className="restrictionsContainer-0-2-290">
               {isLimitedU ? <span className="icon-limited-unique-label"></span> : isLimited ? <span className="icon-limited-label"></span> : null}
             </div>
           </div>
-          <div className="item-card-caption">
-            <div className="item-card-name-link">
-              <div className="item-card-name" title={props.name}>{props.name}</div>
-            </div>
-            <div className="text-overflow item-card-price font-header-2 text-subheader">{price}</div>
+          <span className="cardItemLink-0-2-287 cardItemLinkHeight-0-2-288">
+            <span className="text-overflow-2 noHeight-0-2-307" title={props.name}>{props.name}</span>
+          </span>
+          <div className="text-0-2-292 flex w-fit-content">
+            {price}
           </div>
         </a>
       </NextLink>
-    </li>
+    </div>
   );
 };
 
@@ -315,133 +348,142 @@ const CatalogInner = () => {
       store.setCursor(store.previousCursor || String(Math.max(0, (store.page - 2) * store.limit)));
     };
   };
+  const start = (store.page - 1) * store.limit + (items.length ? 1 : 0);
+  const end = (store.page - 1) * store.limit + items.length;
   return (
     <div className="rbx19" ref={root}>
-      <div className="rbx19-top">
-        <h1 className="rbx19-heading">
-          <a href="/catalog" onClick={(e) => { e.preventDefault(); applyNav(store, "Featured", ""); setOpenPanel("Featured"); setCatLabel("Featured"); }}>Catalog</a>
-        </h1>
-        <div className="rbx19-search">
-          <div className="rbx19-ig">
-            <input className="rbx19-input" placeholder="Search" maxLength={50} ref={input} onKeyDown={(e) => { if (e.key === "Enter") applySearch(e); }} />
-            <div className="rbx19-ddwrap">
-              <button type="button" className="rbx19-ddbtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCatOpen(!catOpen); setSortOpen(false); }}>
-                <span>{catLabel}</span>
-                <i className="rbx19-caret"></i>
-              </button>
-              {catOpen ? (
-                <div className="rbx19-menu">
-                  {SEARCH_CATS.map((c) => (
-                    <button type="button" key={c.name} onClick={(e) => { e.preventDefault(); setCatOpen(false); setCatLabel(c.name); applyNav(store, c.category, c.subCategory); setOpenPanel(c.name === "All Categories" ? "" : c.name); }}>{c.name}</button>
-                  ))}
-                </div>
-              ) : null}
+      <div className="w-100 flex flex-column catalogPage-0-2-227">
+        <div className="w-100 flex justify-content-between align-items-center catalogHeader-0-2-225">
+          <h1>
+            <a href="/catalog" className="inherit-color inherit-font-size" onClick={(e) => { e.preventDefault(); applyNav(store, "Featured", ""); setOpenPanel("Featured"); setCatLabel("Featured"); }}>Catalog</a>
+          </h1>
+          <div className="flex search-0-2-236">
+            <div className="searchWrapper-0-2-233">
+              <input placeholder="Search" className="inputTextStyle inputStyle-0-2-230" maxLength={100} type="text" ref={input} onKeyDown={(e) => { if (e.key === "Enter") applySearch(e); }} />
             </div>
-            <button type="button" className="rbx19-searchbtn" onClick={applySearch} aria-label="Search"></button>
+            <div className="flex">
+              <div className="selectorWrapper-0-2-242 selectorWrapper-0-2-231">
+                <div className="selectorClosed-0-2-243 selector-0-2-232" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCatOpen(!catOpen); setSortOpen(false); }}>
+                  <span>{catLabel}</span>
+                  <span className="selectorCaret-0-2-245">▼</span>
+                </div>
+                {catOpen ? (
+                  <div className="selectorMenuOpen-0-2-246">
+                    {SEARCH_CATS.map((c) => (
+                      <button type="button" className="selectOption-0-2-247" key={c.name} onClick={(e) => { e.preventDefault(); setCatOpen(false); setCatLabel(c.name); applyNav(store, c.category, c.subCategory); setOpenPanel(c.name === "All Categories" ? "" : c.name); }}>{c.name}</button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+              <button type="submit" className="searchButton-0-2-234 newCancelButton-0-2-148" onClick={applySearch}>
+                <div className="flex justify-content-center align-items-center">
+                  <span className="icon-search iconSearch-0-2-238"></span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
-        <a className="rbx19-buy" href="/BuildersClub/Upgrade.ashx">Buy Robux</a>
-      </div>
-      <div className="rbx19-body">
-        <div className="rbx19-side">
-          <h3>Category</h3>
-          <ul className="rbx19-panel">
-            {NAV.map((cat) => {
-              const opened = openPanel === cat.name && cat.children.length > 0;
-              return (
-                <li key={cat.name}>
-                  <button
-                    type="button"
-                    className={"rbx19-catbtn" + (openPanel === cat.name ? " is-on" : "")}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (cat.children.length) setOpenPanel(opened ? "" : cat.name);
-                      else setOpenPanel(cat.name);
-                      applyNav(store, cat.category, cat.subCategory);
-                      setCatLabel(cat.name);
-                    }}
-                  >
-                    {cat.children.length ? <span className="rbx19-plus">{opened ? "−" : "+"}</span> : null}
-                    {cat.name}
-                  </button>
-                  {opened ? (
-                    <ul className="rbx19-subs">
-                      {cat.children.map((sub) => (
-                        <li key={sub.name}>
-                          <button
-                            type="button"
-                            className={store.subCategory === sub.subCategory && store.category === sub.category ? "is-on" : ""}
-                            onClick={(e) => {
+        <div className="w-100 flex catalogContainer-0-2-226 position-relative">
+          <div className="searchOptionsContainer-0-2-223">
+            <div className="categoryWrapper-0-2-268 searchOptionWrapper-0-2-265 flex flex-column">
+              <div className="flex searchOptionHeaderContainer-0-2-267">
+                <h3 className="searchOptionHeader-0-2-266">Category</h3>
+              </div>
+              <div>
+                {NAV.map((cat) => {
+                  const opened = openPanel === cat.name && cat.children.length > 0;
+                  return (
+                    <div className="categoryContainer-0-2-269 flex flex-column" key={cat.name}>
+                      <div className="subCategoryWrapper-0-2-271">
+                        <a className={"link2019-gray" + (openPanel === cat.name ? " is-on" : "")} href="/catalog#" onClick={(e) => {
+                          e.preventDefault();
+                          if (cat.children.length) setOpenPanel(opened ? "" : cat.name);
+                          else setOpenPanel(cat.name);
+                          applyNav(store, cat.category, cat.subCategory);
+                          setCatLabel(cat.name);
+                        }}>
+                          <span className="inherit-color inherit-font-size">{cat.name}</span>
+                          {cat.children.length ? <span className={"inherit-color inherit-font-size " + (opened ? "icon-minus" : "icon-plus")}></span> : null}
+                        </a>
+                      </div>
+                      <div className={"subCategoryContainer-0-2-270 collapse-0-2-272" + (opened ? " in" : "")}>
+                        {cat.children.map((sub) => (
+                          <div className="subCategoryWrapper-0-2-271" key={sub.name}>
+                            <a className={"link2019-gray" + (store.subCategory === sub.subCategory && store.category === sub.category ? " is-on" : "")} href="/catalog#" onClick={(e) => {
                               e.preventDefault();
                               applyNav(store, sub.category, sub.subCategory);
                               setCatLabel(cat.name);
-                            }}
-                          >
-                            {sub.name}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
-                </li>
-              );
-            })}
-          </ul>
-          <div className="rbx19-filters">
-            <h4>Genre</h4>
-            <button type="button" className="rbx19-allg" onClick={(e) => { e.preventDefault(); store.setGenres([]); }}>All Genres</button>
-            {GENRES.map((v) => {
-              const id = "rbx19_genre_" + v.genre;
-              return (
-                <label key={id} htmlFor={id}>
-                  <input
-                    id={id}
-                    type="checkbox"
-                    checked={store.genres.includes(v.genre)}
-                    onChange={(c) => {
-                      if (!c.currentTarget.checked) store.setGenres(store.genres.filter((x) => x !== v.genre));
-                      else store.setGenres([...store.genres, v.genre]);
-                    }}
-                  />
-                  {v.name}
-                </label>
-              );
-            })}
-          </div>
-        </div>
-        <div className="rbx19-main">
-          <div className="rbx19-crumbs">
-            <span className="rbx19-crumb">{catLabel}</span>
-            <div className="rbx19-ddwrap">
-              <button type="button" className="rbx19-ddbtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSortOpen((o) => !o); setCatOpen(false); }}>
-                <span>{sortLabel}</span>
-                <i className="rbx19-caret"></i>
-              </button>
-              {sortOpen ? (
-                <div className="rbx19-menu">
-                  {SORTS.map((s) => (
-                    <button type="button" key={s.key} onClick={(e) => { e.preventDefault(); setSortOpen(false); store.setSort(s.key); }}>{s.label}</button>
-                  ))}
-                </div>
-              ) : null}
+                            }}>{sub.name}</a>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="searchOptionWrapper-0-2-275">
+              <h3 className="searchOptionHeader-0-2-266">Filters</h3>
+              <h5 className="filterHeader-0-2-277">Genre</h5>
+              <a className="allGenres-0-2-281" href="/catalog#" onClick={(e) => { e.preventDefault(); store.setGenres([]); }}>All Genres</a>
+              {GENRES.map((v) => {
+                const id = "genre-" + v.genre;
+                return (
+                  <div className="genreCheckbox-0-2-280 checkbox2019" key={id}>
+                    <input
+                      id={id}
+                      type="checkbox"
+                      checked={store.genres.includes(v.genre)}
+                      onChange={(c) => {
+                        if (!c.currentTarget.checked) store.setGenres(store.genres.filter((x) => x !== v.genre));
+                        else store.setGenres([...store.genres, v.genre]);
+                      }}
+                    />
+                    <label htmlFor={id}>{v.name}</label>
+                  </div>
+                );
+              })}
             </div>
           </div>
-          <div className={store.locked ? "rbx19-dim" : "rbx19-ready"}>
-            {store.results && items.length === 0 ? <div className="rbx19-empty">No items found.</div> : null}
-            <ul className="hlist item-cards-stackable">
-              {items.map((v) => <ItemCard key={v.id} {...v} />)}
-            </ul>
-          </div>
-          <div className="rbx-pager">
-            <ul className="pager">
-              <li className={store.page <= 1 || store.locked ? "pager-prev disabled" : "pager-prev"}>
-                <a href="#" onClick={pageClick(-1)}><span className="icon-back"></span></a>
-              </li>
-              <li><span>Page {store.page}</span></li>
-              <li className={store.locked || (!store.nextCursor && items.length < store.limit) ? "pager-next disabled" : "pager-next"}>
-                <a href="#" onClick={pageClick(1)}><span className="icon-next"></span></a>
-              </li>
-            </ul>
+          <div className="searchResultsContainer-0-2-224">
+            <div className="resultsWrapper-0-2-250">
+              <div className="breadcrumbsContainer-0-2-251 flex flex-column w-100">
+                <div style={{ marginBottom: 6, display: "flex", gap: 5 }}>
+                  <span>{catLabel}</span>&gt;<span>All</span>
+                </div>
+                <div style={{ color: "rgb(117, 117, 117)", fontSize: 12, fontWeight: 400 }}>
+                  <span style={{ marginTop: 2 }}>{start} - {end}{store.total != null ? " of " + store.total : ""} Results</span>
+                </div>
+                <div className="w-100 flex justify-content-end">
+                  <div className="selectorWrapper-0-2-242 selectorWrapper-0-2-252">
+                    <div className="selectorClosed-0-2-243 selector-0-2-253" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSortOpen((o) => !o); setCatOpen(false); }}>
+                      <span>{sortLabel}</span>
+                      <span className="selectorCaret-0-2-245">▼</span>
+                    </div>
+                    {sortOpen ? (
+                      <div className="selectorMenuOpen-0-2-246">
+                        {SORTS.map((s) => (
+                          <button type="button" className="selectOption-0-2-247" key={s.key} onClick={(e) => { e.preventDefault(); setSortOpen(false); store.setSort(s.key); }}>{s.label}</button>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+              <div className={store.locked ? "resultsContainer-0-2-255 flex rbx19-dim" : "resultsContainer-0-2-255 flex"}>
+                {store.results && items.length === 0 ? <div className="rbx19-empty">No items found.</div> : null}
+                {items.map((v) => <ItemCard key={v.id} {...v} />)}
+              </div>
+              <div className="paginationContainer-0-2-256">
+                <button type="button" className={"paginationBtn-0-2-257" + (store.page <= 1 || store.locked ? " disabled" : "")} onClick={pageClick(-1)}>
+                  <span className="backIcon-0-2-259"></span>
+                </button>
+                <span className="pages-0-2-258">Page {store.page}</span>
+                <button type="button" className={"paginationBtn-0-2-257" + (store.locked || (!store.nextCursor && items.length < store.limit) ? " disabled" : "")} onClick={pageClick(1)}>
+                  <span className="forwardIcon-0-2-260"></span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
