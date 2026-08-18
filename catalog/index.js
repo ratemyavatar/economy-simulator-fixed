@@ -57,7 +57,9 @@ const CATALOG_CSS = `
 .rbx19 .item-card-thumb-container .icon-limited-unique-label{position:absolute;left:0;bottom:0;width:64px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
 .rbx19 .status-new{position:absolute;top:6px;right:6px;background:#f68802;color:#fff;font-size:10px;padding:4px;border-radius:3px}
 .rbx19-empty{text-align:center;padding:24px;color:#757575}
-.rbx19-pagerwrap{margin-top:16px;max-width:280px;margin-left:auto;margin-right:auto}
+.rbx19-pagerwrap{margin-top:16px;max-width:320px;margin-left:auto;margin-right:auto}
+.rbx19-pagerwrap button{height:32px;border:1px solid #777;background:linear-gradient(0deg,#e0e0e0 0%,#fff 100%);cursor:pointer}
+.rbx19-pagerwrap button:disabled{opacity:.5;cursor:default}
 .rbx19-dim{opacity:.45}
 `;
 
@@ -387,29 +389,12 @@ const CatalogInner = () => {
             </ul>
           </div>
           <div className="rbx19-pagerwrap">
-            <CatalogPagination />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const CatalogPage = () => {
-  return (
-    <CatalogPageStore.Provider>
-      <style>{CATALOG_CSS}</style>
-      <CatalogInner />
-    </CatalogPageStore.Provider>
-  );
-};
-
-CatalogPage.getInitialProps = () => {
-  return { title: "Catalog - ROBLOX" };
-};
-
-export default CatalogPage;
-center">Page {store.page}</p>
+            <div className="row">
+              <div className="col-3">
+                <button type="button" className="w-100" onClick={pageClick(-1)} disabled={store.page <= 1 || store.locked}>Previous</button>
+              </div>
+              <div className="col-6">
+                <p className="mb-0 text-center">Page {store.page}</p>
               </div>
               <div className="col-3">
                 <button type="button" className="w-100" onClick={pageClick(1)} disabled={store.locked || (!store.nextCursor && items.length < store.limit)}>Next</button>
