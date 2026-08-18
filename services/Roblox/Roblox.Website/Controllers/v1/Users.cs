@@ -43,7 +43,8 @@ public class UsersControllerV1 : ControllerBase
             info.description,
             info.created,
             isBanned,
-            postCount
+            postCount,
+            isVerified = info.isVerified
         };
     }
 

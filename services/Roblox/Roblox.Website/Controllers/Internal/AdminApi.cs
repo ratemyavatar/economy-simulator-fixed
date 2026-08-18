@@ -36,6 +36,7 @@ using Roblox.Models.Users;
 using Roblox.Services.App.FeatureFlags;
 using Roblox.Services.Exceptions;
 using Roblox.Website.Filters;
+using Roblox.Website.WebsiteModels.Admin.Verified;
 using Roblox.Website.WebsiteModels.Asset;
 using Type = Roblox.Models.Assets.Type;
 
@@ -732,7 +733,7 @@ public class AdminApiController : ControllerBase
     [HttpGet("user"), StaffFilter(Access.GetUserDetailed)]
     public async Task<dynamic> GetUserInfoDetailed(long userId)
     {
-        var result = await db.QuerySingleOrDefaultAsync("SELECT u.id, u.username, u.description, u.created_at, u.online_at, u.status, us.*, ue.*, avatar.thumbnail_url, ub.author_user_id as ban_author_user_id, ban_author.username as ban_author_username, ub.reason as ban_reason, ub.internal_reason as ban_reason_internal, ub.created_at as ban_created_at, ub.updated_at as ban_updated_at FROM \"user\" u LEFT JOIN user_settings us on u.id = us.user_id LEFT JOIN user_economy ue on u.id = ue.user_id LEFT JOIN user_avatar avatar ON avatar.user_id = u.id LEFT JOIN user_ban ub ON ub.user_id = u.id LEFT JOIN \"user\" as ban_author ON ban_author.id = ub.author_user_id WHERE u.id = :user_id LIMIT 1", new
+        var result = await db.QuerySingleOrDefaultAsync("SELECT u.id, u.username, u.description, u.created_at, u.online_at, u.status, u.verified, us.*, ue.*, avatar.thumbnail_url, ub.author_user_id as ban_author_user_id, ban_author.username as ban_author_username, ub.reason as ban_reason, ub.internal_reason as ban_reason_internal, ub.created_at as ban_created_at, ub.updated_at as ban_updated_at FROM \"user\" u LEFT JOIN user_settings us on u.id = us.user_id LEFT JOIN user_economy ue on u.id = ue.user_id LEFT JOIN user_avatar avatar ON avatar.user_id = u.id LEFT JOIN user_ban ub ON ub.user_id = u.id LEFT JOIN \"user\" as ban_author ON ban_author.id = ub.author_user_id WHERE u.id = :user_id LIMIT 1", new
         {
             user_id = userId,
         });
@@ -757,7 +758,21 @@ public class AdminApiController : ControllerBase
         result.invite = (object?) joinInvite;
         result.joinApp = (object?) joinApp;
         result.year = year.ToString();
+        result.verified = (object)await GetUserVerified(userId);
         return result;
+    }
+
+    public async Task<bool> GetUserVerified(long userId)
+    {
+        return await db.ExecuteScalarAsync<bool>("SELECT verified FROM \"user\" WHERE id = :userId", new { userId });
+    }
+
+    [HttpPost("users/verify"), StaffFilter(Access.GiveUserBadge)]
+    public async Task<dynamic> ToggleUserVerifiedStatus([Required, FromBody] VerifiedReq request)
+    {
+        await db.ExecuteAsync("UPDATE \"user\" SET verified = NOT verified WHERE id = :userId", new { userId = request.userId });
+        var Status = await db.ExecuteScalarAsync<bool>("SELECT verified FROM \"user\" WHERE id = :userId", new { userId = request.userId });
+        return new { success = true, isVerified = Status };
     }
 
     private bool IsAdmin()

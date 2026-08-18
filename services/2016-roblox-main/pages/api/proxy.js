@@ -11,10 +11,10 @@ const UrlUtilities = (() => {
       return baseDomainParsed.hostname;
       console.log(baseDomainParsed.hostname)
     }else if (baseDomainParsed.type === ParseResultType.Reserved) {
-      if (baseDomainParsed.hostname === 'economy-simulator.org') {
-        return 'economy-simulator.org';
+      if (baseDomainParsed.hostname === 'anemon.lol') {
+        return 'anemon.lol';
       }
-      throw new Error('The only allowed reserved domain type is economy-simulator.org, got ' + baseDomainParsed.hostname);
+      throw new Error('The only allowed reserved domain type is anemon.lol, got ' + baseDomainParsed.hostname);
     } else {
       //throw new Error('Unsupported domain type: ' + baseDomainParsed.type);
     }
@@ -70,10 +70,10 @@ const actualHandler = async (req, res) => {
       if (item === 'set-cookie') {
         // TODO: "localhost" needs to be configurable
         if (typeof value === 'string') {
-          value = value.replace(/roblox\.com/g, 'economy-simulator.org');
+          value = value.replace(/roblox\.com/g, 'anemon.lol');
         } else {
           value.forEach((v, i, arr) => {
-            arr[i] = v.replace(/roblox\.com/g, 'economy-simulator.org');
+            arr[i] = v.replace(/roblox\.com/g, 'anemon.lol');
           });
         }
       }

@@ -2,7 +2,7 @@ local jobId = "InsertJobIdHere";
 local assetId = 65789275746246;
 local assetType = 358843;
 local mode = "R6";
-local baseURL = "https://economy-simulator.org";
+local baseURL = "https://anemon.lol";
 local goToAsset = "/asset/?id="
 local uploadURL = "UPLOAD_URL_HERE";
 local ScriptContext = game:GetService("ScriptContext");

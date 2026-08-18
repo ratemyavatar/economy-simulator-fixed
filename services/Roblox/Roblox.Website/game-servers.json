@@ -1,0 +1,9 @@
+{
+  "GameServers": [
+    {
+      "ip": "127.0.0.1",
+      "domain": "anemon.lol",
+      "maxServerCount": 10
+    }
+  ]
+}

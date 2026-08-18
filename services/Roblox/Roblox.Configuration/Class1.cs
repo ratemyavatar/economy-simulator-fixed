@@ -1,4 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
+// ReSharper disable InconsistentNaming
 #pragma warning disable CS8618
 namespace Roblox;
 
@@ -64,5 +64,5 @@ public static class Configuration
         }
     }
 
-    public static string GameServerDomain => "gameserver.com"; // set to your game server's domain
+    public static string GameServerDomain => "anemon.lol"; // set to your game server's domain
 }

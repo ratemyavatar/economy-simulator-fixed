@@ -1,0 +1,10 @@
+{
+    "rcc": "./RCCService",
+    "authorization": "anemon-lol-gameserver-auth",
+    "baseUrl": "http://localhost:5000",
+    "rccPort": 64989,
+    "port": 3040,
+    "websiteBotAuth": "anemon-lol-bot-auth",
+    "thumbnailWebsocketPort": 3189,
+    "dockerDisabled": true
+}
