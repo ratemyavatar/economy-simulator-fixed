@@ -5,94 +5,72 @@ import thumbnailStore from "../../stores/thumbnailStore";
 import { getItemUrl } from "../../services/catalog";
 
 const CATALOG_CSS = `
-.rbx19{max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px;overflow:visible}
+.rbx19{max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px}
 .rbx19 *{box-sizing:border-box}
 .rbx19 button{appearance:none;-webkit-appearance:none;margin:0;font-family:inherit;line-height:1}
-.rbx19-top{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;overflow:visible;position:relative;z-index:50}
-.rbx19-heading{margin:0;padding:0;font-size:32px;font-weight:800;line-height:38px;flex:0 0 auto}
+.rbx19-top{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;position:relative;z-index:50}
+.rbx19-heading{margin:0;padding:0;font-size:32px;font-weight:800;line-height:38px}
 .rbx19-heading a{color:#191919;text-decoration:none}
-.rbx19-buy{flex:0 0 auto;background:#00b06f;color:#fff!important;border-radius:3px;padding:9px 16px;font-size:16px;font-weight:500;text-decoration:none;line-height:1.2em;white-space:nowrap}
-.rbx19-buy:hover{background:#00965e;color:#fff!important}
-.rbx19-search{flex:1 1 auto;display:flex;justify-content:flex-end;min-width:0;overflow:visible}
+.rbx19-buy{background:#00b06f;color:#fff!important;border-radius:3px;padding:9px 16px;font-size:16px;font-weight:500;text-decoration:none;white-space:nowrap}
+.rbx19-search{flex:1 1 auto;display:flex;justify-content:flex-end}
 .rbx19-ig{display:flex;align-items:center;height:38px}
-.rbx19-input{width:260px;height:38px;border:1px solid #b8b8b8;border-right:0;border-radius:3px 0 0 3px;padding:0 12px;font-size:16px;font-weight:300;color:#191919;background:#fff;line-height:38px}
-.rbx19-input:focus{border-color:#00a2ff;outline:none}
-.rbx19-ddwrap{position:relative;height:38px;overflow:visible}
-.rbx19-ddbtn{display:flex;align-items:center;justify-content:space-between;height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;width:180px;text-align:left;cursor:pointer;line-height:1}
-.rbx19-ddbtn:disabled{opacity:.5;cursor:not-allowed}
-.rbx19-ddbtn span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 auto;padding-right:8px}
-.rbx19-caret{display:block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919;flex:0 0 auto}
-.rbx19-menu{display:block;position:absolute;z-index:400;left:0;top:100%;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;list-style:none;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:338px;overflow:auto}
-.rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;color:#191919;background:transparent;border:0;cursor:pointer;font-size:16px}
+.rbx19-input{width:240px;height:38px;border:1px solid #b8b8b8;border-right:0;border-radius:3px 0 0 3px;padding:0 12px;font-size:16px;background:#fff}
+.rbx19-ddwrap{position:relative;height:38px}
+.rbx19-ddbtn{display:flex;align-items:center;justify-content:space-between;height:38px;background:#fff;border:1px solid #b8b8b8;color:#191919;padding:0 10px;font-size:16px;width:170px;cursor:pointer}
+.rbx19-ddbtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;padding-right:8px}
+.rbx19-caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid #191919;flex:0 0 auto}
+.rbx19-menu{position:absolute;z-index:400;left:0;top:100%;background:#fff;border:1px solid #b8b8b8;margin:0;padding:4px 0;min-width:100%;box-shadow:0 2px 4px rgba(0,0,0,.15);max-height:320px;overflow:auto}
+.rbx19-menu button{display:block;width:100%;text-align:left;padding:8px 12px;background:transparent;border:0;cursor:pointer;font-size:16px}
 .rbx19-menu button:hover{background:#00a2ff;color:#fff}
-.rbx19-searchbtn{display:flex;align-items:center;justify-content:center;height:38px;width:38px;padding:0;background:#00a2ff;border:1px solid #00a2ff;color:#fff;cursor:pointer;border-radius:0 3px 3px 0;flex:0 0 38px}
-.rbx19-searchbtn:disabled{opacity:.5;cursor:not-allowed}
-.rbx19-searchicon{display:block;width:12px;height:12px;border:2px solid #fff;border-radius:50%;position:relative;box-sizing:content-box}
+.rbx19-searchbtn{display:flex;align-items:center;justify-content:center;height:38px;width:38px;padding:0;background:#00a2ff;border:1px solid #00a2ff;cursor:pointer;border-radius:0 3px 3px 0}
+.rbx19-searchicon{width:12px;height:12px;border:2px solid #fff;border-radius:50%;position:relative}
 .rbx19-searchicon:after{content:"";position:absolute;width:6px;height:2px;background:#fff;right:-4px;bottom:0;transform:rotate(45deg)}
 .rbx19-body{display:flex;align-items:flex-start}
 .rbx19-side{width:160px;flex:0 0 160px;padding-right:12px;border-right:1px solid #b8b8b8}
 .rbx19-side h3{margin:0 0 8px;font-size:20px;font-weight:700}
-.rbx19-panel{margin:0 0 6px;list-style:none;padding:0}
-.rbx19-catbtn{display:block;width:100%;text-align:left;background:transparent;border:0;padding:6px 0;color:#757575;font-size:16px;font-weight:500;cursor:pointer}
+.rbx19-panel{margin:0;padding:0;list-style:none}
+.rbx19-catbtn{display:block;width:100%;text-align:left;background:transparent;border:0;padding:6px 0;color:#757575;font-size:16px;cursor:pointer}
 .rbx19-catbtn:hover,.rbx19-catbtn.is-on{color:#00a2ff}
-.rbx19-plus{float:right;font-size:18px;line-height:16px;color:#757575;width:16px;text-align:center}
+.rbx19-plus{float:right}
 .rbx19-subs{list-style:none;margin:0;padding:0 0 4px 12px}
 .rbx19-subs button{display:block;width:100%;text-align:left;background:transparent;border:0;padding:4px 0;color:#757575;font-size:14px;cursor:pointer}
 .rbx19-subs button:hover,.rbx19-subs button.is-on{color:#00a2ff}
 .rbx19-filters{border-top:1px solid #b8b8b8;margin-top:8px;padding-top:10px}
 .rbx19-filters h4{margin:0 0 6px;font-size:16px;font-weight:700}
-.rbx19-filters label{display:block;font-size:13px;font-weight:400;margin:3px 0;cursor:pointer;color:#191919}
-.rbx19-filters input{margin-right:6px}
+.rbx19-filters label{display:block;font-size:13px;margin:3px 0;cursor:pointer}
 .rbx19-allg{background:none;border:0;padding:0 0 6px;color:#0055b3;cursor:pointer;font-weight:600;font-size:13px}
-.rbx19-main{flex:1;min-width:0;padding-left:8px;overflow:visible}
-.rbx19-crumbs{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px;padding-left:6px;min-height:38px;position:relative;z-index:30;overflow:visible}
-.rbx19-crumb{color:#00a2ff;font-weight:500;font-size:16px;line-height:38px}
-.rbx19-sorts{position:relative;z-index:40;overflow:visible}
-.rbx19 .item-cards-stackable{width:100%;overflow:visible;list-style:none;margin:0;padding:0;font-size:0}
-.rbx19 .item-cards-stackable .item-card{float:none;display:inline-block;vertical-align:top;padding:5px;width:16.6667%;font-size:16px}
-.rbx19 .item-card-container{display:block;position:relative;padding:0 0 5px;width:126px;max-width:150px;height:100%;margin:0 auto;background:#fff;color:#191919;text-decoration:none}
-.rbx19 .item-card-link,.rbx19 .item-card-name-link{display:block}
-.rbx19 .item-card-thumb-container{width:126px;height:126px;position:relative;border-bottom:1px solid #e3e3e3;background:#e3e3e3;overflow:hidden}
-.rbx19 .item-card-thumb-container .item-card-thumb{width:100%;height:100%;object-fit:cover;border:0;display:block}
-.rbx19 .item-card-thumb-container span[class^=\"icon-\"]{position:absolute;bottom:-2px;left:-2px}
-.rbx19 .item-card-caption{padding-top:5px}
-.rbx19 .item-card-name{height:45px;overflow:hidden;white-space:normal;font-weight:500;padding:0 5px;color:#191919}
-.rbx19 .item-card-price{padding:0 5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.rbx19-main{flex:1;min-width:0;padding-left:8px}
+.rbx19-crumbs{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px;min-height:38px;position:relative;z-index:30}
+.rbx19-crumb{color:#00a2ff;font-weight:500;font-size:16px}
+.rbx19 .item-cards-stackable{width:100%;margin:0;padding:0;list-style:none;font-size:0}
+.rbx19 .item-cards-stackable .item-card{display:inline-block;vertical-align:top;width:126px;padding:5px;font-size:16px}
+.rbx19 .item-card-container{display:block;width:126px;max-width:126px;padding:0 0 5px;background:#fff;color:#191919;text-decoration:none}
+.rbx19 .item-card-link{display:block;width:126px;height:126px}
+.rbx19 .item-card-thumb-container{position:relative;width:126px!important;height:126px!important;max-width:126px;max-height:126px;border-bottom:1px solid #e3e3e3;background:#e3e3e3;overflow:hidden}
+.rbx19 .item-card-thumb{width:126px!important;height:126px!important;max-width:126px!important;max-height:126px!important;object-fit:cover;display:block;border:0}
+.rbx19 .item-card-caption{padding-top:5px;width:126px}
+.rbx19 .item-card-name{height:40px;overflow:hidden;font-weight:500;padding:0 5px;font-size:16px;line-height:1.2}
+.rbx19 .item-card-price{padding:0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rbx19 .text-robux-tile{color:#02b757;font-weight:500}
-.rbx19 .item-card-price .icon-robux{display:inline-block;width:16px;height:12px;background:url(/img/img-robux.png) no-repeat center;background-size:contain;vertical-align:middle;margin:0 3px 0 0;float:none}
-.rbx19 .item-card-thumb-container .icon-limited-label{width:60px;height:16px;background:url(/img/CatalogOverlays/Limited.png) no-repeat;background-size:contain}
-.rbx19 .item-card-thumb-container .icon-limited-unique-label{width:80px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
-.rbx19 .asset-status-icon{position:absolute;top:6px;right:6px;z-index:1}
-.rbx19 .status-new{display:inline-block;font-size:12px;background:#f68802;color:#fff;padding:4px;border-radius:3px;line-height:1em}
-@media (max-width:991px){.rbx19 .item-cards-stackable .item-card{width:20%}.rbx19 .item-card-container,.rbx19 .item-card-thumb-container{width:100%}}
+.rbx19 .item-card-price .icon-robux{display:inline-block;width:16px;height:12px;background:url(/img/img-robux.png) no-repeat center;background-size:contain;vertical-align:middle;margin-right:3px}
+.rbx19 .item-card-thumb-container .icon-limited-label{position:absolute;left:0;bottom:0;width:48px;height:16px;background:url(/img/CatalogOverlays/Limited.png) no-repeat;background-size:contain}
+.rbx19 .item-card-thumb-container .icon-limited-unique-label{position:absolute;left:0;bottom:0;width:64px;height:16px;background:url(/img/CatalogOverlays/LimitedUnique.png) no-repeat;background-size:contain}
+.rbx19 .status-new{position:absolute;top:6px;right:6px;background:#f68802;color:#fff;font-size:10px;padding:4px;border-radius:3px}
 .rbx19-empty{text-align:center;padding:24px;color:#757575}
-.rbx19-pager{text-align:center;margin:20px 0 0;padding:0;list-style:none}
-.rbx19-pager li{display:inline-block;margin:0 4px}
-.rbx19-pager button{min-width:32px;height:32px;line-height:30px;border:1px solid #b8b8b8;border-radius:3px;padding:0 10px;color:#00a2ff;background:#fff;cursor:pointer}
-.rbx19-pager button:disabled{color:#b8b8b8;cursor:default}
-.rbx19-dim{opacity:.4;pointer-events:none}
-@media (max-width:767px){.rbx19-card{width:33.333%}.rbx19-side{display:none}.rbx19-search{display:none}.rbx19-input{width:160px}}
+.rbx19-pagerwrap{margin-top:16px;max-width:280px;margin-left:auto;margin-right:auto}
+.rbx19-dim{opacity:.45}
 `;
 
 const NAV = [
-  {
-    name: "View All Items",
-    category: "Featured",
-    subCategory: "",
-    children: [],
-  },
   {
     name: "Featured",
     category: "Featured",
     subCategory: "",
     children: [
       { name: "All Featured Items", category: "Featured", subCategory: "" },
-      { name: "Featured Accessories", category: "Featured", subCategory: "Accessories" },
-      { name: "Featured Animations", category: "Featured", subCategory: "Accessories" },
-      { name: "Featured Faces", category: "Featured", subCategory: "Faces" },
+      { name: "Featured Hats", category: "Featured", subCategory: "Accessories" },
       { name: "Featured Gear", category: "Featured", subCategory: "Gear" },
-      { name: "Featured Bundles", category: "Featured", subCategory: "Packages" },
-      { name: "Featured Emotes", category: "Featured", subCategory: "Accessories" },
+      { name: "Featured Faces", category: "Featured", subCategory: "Faces" },
     ],
   },
   {
@@ -101,95 +79,74 @@ const NAV = [
     subCategory: "",
     children: [
       { name: "All Collectibles", category: "Collectibles", subCategory: "" },
-      { name: "Collectible Accessories", category: "Collectibles", subCategory: "Accessories" },
       { name: "Collectible Faces", category: "Collectibles", subCategory: "Faces" },
+      { name: "Collectible Hats", category: "Collectibles", subCategory: "Accessories" },
       { name: "Collectible Gear", category: "Collectibles", subCategory: "Gear" },
     ],
   },
   {
+    name: "All Categories",
+    category: "all",
+    subCategory: "all",
+    children: [],
+  },
+  {
     name: "Clothing",
-    category: "Clothing",
-    subCategory: "",
+    category: "null",
+    subCategory: "Clothing",
     children: [
-      { name: "All Clothing", category: "Clothing", subCategory: "Clothing" },
-      { name: "Shirts", category: "Clothing", subCategory: "Shirt" },
-      { name: "T-Shirts", category: "Clothing", subCategory: "TeeShirt" },
-      { name: "Pants", category: "Clothing", subCategory: "Pants" },
-      { name: "Bundles", category: "Clothing", subCategory: "Packages" },
+      { name: "All Clothing", category: "null", subCategory: "Clothing" },
+      { name: "Hats", category: "null", subCategory: "Accessories" },
+      { name: "Shirts", category: "null", subCategory: "Shirt" },
+      { name: "T-Shirts", category: "null", subCategory: "TeeShirt" },
+      { name: "Pants", category: "null", subCategory: "Pants" },
+      { name: "Packages", category: "null", subCategory: "Packages" },
     ],
   },
   {
     name: "Body Parts",
     category: "bodyparts",
-    subCategory: "",
+    subCategory: "All",
     children: [
       { name: "All Body Parts", category: "bodyparts", subCategory: "All" },
       { name: "Heads", category: "bodyparts", subCategory: "Heads" },
       { name: "Faces", category: "bodyparts", subCategory: "Faces" },
-      { name: "Bundles", category: "bodyparts", subCategory: "Packages" },
+      { name: "Packages", category: "bodyparts", subCategory: "Packages" },
     ],
   },
   {
     name: "Gear",
     category: "gear",
-    subCategory: "",
+    subCategory: "all",
     children: [
       { name: "All Gear", category: "gear", subCategory: "all" },
-      { name: "Building", category: "gear", subCategory: "building" },
+      { name: "Melee Weapon", category: "gear", subCategory: "melee" },
+      { name: "Ranged Weapon", category: "gear", subCategory: "ranged" },
       { name: "Explosive", category: "gear", subCategory: "explosive" },
-      { name: "Melee", category: "gear", subCategory: "melee" },
-      { name: "Musical", category: "gear", subCategory: "musical" },
-      { name: "Navigation", category: "gear", subCategory: "navigation" },
       { name: "Power Up", category: "gear", subCategory: "powerup" },
-      { name: "Ranged", category: "gear", subCategory: "ranged" },
-      { name: "Social", category: "gear", subCategory: "social" },
-      { name: "Transport", category: "gear", subCategory: "transport" },
-    ],
-  },
-  {
-    name: "Accessories",
-    category: "Accessories",
-    subCategory: "",
-    children: [
-      { name: "All Accessories", category: "Accessories", subCategory: "" },
-      { name: "Hats", category: "Accessories", subCategory: "Hats" },
-      { name: "Hair", category: "Accessories", subCategory: "Hats" },
-      { name: "Face", category: "Accessories", subCategory: "Hats" },
-      { name: "Neck", category: "Accessories", subCategory: "Hats" },
-      { name: "Shoulder", category: "Accessories", subCategory: "Hats" },
-      { name: "Front", category: "Accessories", subCategory: "Hats" },
-      { name: "Back", category: "Accessories", subCategory: "Hats" },
-      { name: "Waist", category: "Accessories", subCategory: "Hats" },
-    ],
-  },
-  {
-    name: "Avatar Animations",
-    category: "Accessories",
-    subCategory: "",
-    children: [
-      { name: "Emotes", category: "Accessories", subCategory: "" },
+      { name: "Navigation Enhancer", category: "gear", subCategory: "navigation" },
+      { name: "Musical Instrument", category: "gear", subCategory: "musical" },
+      { name: "Social Item", category: "gear", subCategory: "social" },
+      { name: "Building Tool", category: "gear", subCategory: "building" },
+      { name: "Personal Transport", category: "gear", subCategory: "transport" },
     ],
   },
 ];
 
 const SORTS = [
   { key: 0, label: "Relevance" },
-  { key: 100, label: "Most Favorited" },
-  { key: 101, label: "Bestselling" },
   { key: 3, label: "Recently Updated" },
   { key: 5, label: "Price (High to Low)" },
   { key: 4, label: "Price (Low to High)" },
 ];
 
 const SEARCH_CATS = [
-  "All Categories",
-  "Featured",
-  "Collectibles",
-  "Clothing",
-  "Body Parts",
-  "Gear",
-  "Accessories",
-  "Avatar Animations",
+  { name: "All Categories", category: "all", subCategory: "all" },
+  { name: "Featured", category: "Featured", subCategory: "" },
+  { name: "Collectibles", category: "Collectibles", subCategory: "" },
+  { name: "Clothing", category: "null", subCategory: "Clothing" },
+  { name: "Body Parts", category: "bodyparts", subCategory: "All" },
+  { name: "Gear", category: "gear", subCategory: "all" },
 ];
 
 const GENRES = [
@@ -226,33 +183,40 @@ const ItemCard = (props) => {
   const href = getItemUrl({ assetId: props.id, name: props.name });
   let price = null;
   if (props.isForSale && props.price === 0) {
-    price = <span>Free</span>;
+    price = <span className="text-robux-tile">Free</span>;
   } else if (props.isForSale && props.price !== null) {
-    price = <span><span className="rbx19-robux"></span>{Number(props.price).toLocaleString()}</span>;
+    price = <><span className="icon icon-robux"></span><span className="text-robux-tile">{Number(props.price).toLocaleString()}</span></>;
   } else if ((isLimited || isLimitedU) && !props.isForSale) {
-    price = <span><span className="rbx19-robux"></span>{Number(props.lowestPrice || props.price || 0).toLocaleString()}</span>;
+    price = <><span className="icon icon-robux"></span><span className="text-robux-tile">{Number(props.lowestPrice || props.price || 0).toLocaleString()}</span></>;
   } else {
-    price = <span style={{ color: "#757575" }}>Offsale</span>;
+    price = <span>Offsale</span>;
   }
   return (
-    <li className="rbx19-card">
+    <li className="list-item item-card">
       <NextLink href={href}>
-        <a>
-          <div className="rbx19-thumb">
-            {isNew ? <span className="rbx19-new">New</span> : null}
-            <img
-              alt={props.name}
-              src={image}
-              onError={(e) => {
-                if (e.currentTarget.src !== thumbs.getPlaceholder()) {
-                  setImage(thumbs.getPlaceholder());
-                }
-              }}
-            />
-            {isLimitedU ? <span className="rbx19-limu"></span> : isLimited ? <span className="rbx19-lim"></span> : null}
+        <a className="item-card-container">
+          <div className="item-card-link">
+            <div className="item-card-thumb-container">
+              {isNew ? <span className="status-new">New</span> : null}
+              <img
+                className="item-card-thumb"
+                width={126}
+                height={126}
+                alt={props.name}
+                src={image}
+                onError={(e) => {
+                  if (e.currentTarget.src !== thumbs.getPlaceholder()) {
+                    setImage(thumbs.getPlaceholder());
+                  }
+                }}
+              />
+              {isLimitedU ? <span className="icon-limited-unique-label"></span> : isLimited ? <span className="icon-limited-label"></span> : null}
+            </div>
           </div>
-          <div className="rbx19-name" title={props.name}>{props.name}</div>
-          <div className="rbx19-price">{price}</div>
+          <div className="item-card-caption">
+            <div className="item-card-name" title={props.name}>{props.name}</div>
+            <div className="item-card-price">{price}</div>
+          </div>
         </a>
       </NextLink>
     </li>
@@ -268,9 +232,7 @@ const CatalogInner = () => {
   const [catLabel, setCatLabel] = useState("Featured");
   const [openPanel, setOpenPanel] = useState("Featured");
   useEffect(() => {
-    if (input.current) {
-      input.current.value = store.query || "";
-    }
+    if (input.current) input.current.value = store.query || "";
   }, [store.query]);
   useEffect(() => {
     const onDoc = (e) => {
@@ -283,6 +245,7 @@ const CatalogInner = () => {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
   const sortLabel = (SORTS.find((s) => s.key === store.sort) || SORTS[0]).label;
+  const items = store.results && store.results.data ? store.results.data : [];
   const applySearch = (e) => {
     if (e) {
       e.preventDefault();
@@ -290,19 +253,22 @@ const CatalogInner = () => {
     }
     store.setQuery(input.current ? input.current.value : "");
   };
-  const pickSearchCat = (name) => {
-    setCatLabel(name);
-    setCatOpen(false);
-    const match = NAV.find((n) => n.name === name) || NAV.find((n) => n.name === "Featured");
-    if (name === "All Categories") {
-      applyNav(store, "Featured", "");
-      setOpenPanel("Featured");
-      return;
-    }
-    applyNav(store, match.category, match.subCategory);
-    setOpenPanel(match.name);
+  const pageClick = (increment) => {
+    return (e) => {
+      e.preventDefault();
+      if (store.locked) return;
+      if (increment === 1) {
+        const next = store.nextCursor || (items.length >= store.limit ? String(store.page * store.limit) : null);
+        if (!next) return;
+        store.setPage(store.page + 1);
+        store.setCursor(next);
+        return;
+      }
+      if (store.page <= 1) return;
+      store.setPage(store.page - 1);
+      store.setCursor(store.previousCursor || String(Math.max(0, (store.page - 2) * store.limit)));
+    };
   };
-  const items = store.results && store.results.data ? store.results.data : [];
   return (
     <div className="rbx19" ref={root}>
       <div className="rbx19-top">
@@ -311,40 +277,21 @@ const CatalogInner = () => {
         </h1>
         <div className="rbx19-search">
           <div className="rbx19-ig">
-            <input
-              className="rbx19-input"
-              placeholder="Search"
-              maxLength={50}
-              ref={input}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") applySearch(e);
-              }}
-            />
+            <input className="rbx19-input" placeholder="Search" maxLength={50} ref={input} onKeyDown={(e) => { if (e.key === "Enter") applySearch(e); }} />
             <div className="rbx19-ddwrap">
-              <button
-                type="button"
-                className="rbx19-ddbtn"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setCatOpen(!catOpen);
-                  setSortOpen(false);
-                }}
-              >
+              <button type="button" className="rbx19-ddbtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCatOpen(!catOpen); setSortOpen(false); }}>
                 <span>{catLabel}</span>
                 <i className="rbx19-caret"></i>
               </button>
               {catOpen ? (
                 <div className="rbx19-menu">
                   {SEARCH_CATS.map((c) => (
-                    <button type="button" key={c} onClick={(e) => { e.preventDefault(); e.stopPropagation(); pickSearchCat(c); }}>{c}</button>
+                    <button type="button" key={c.name} onClick={(e) => { e.preventDefault(); setCatOpen(false); setCatLabel(c.name); applyNav(store, c.category, c.subCategory); setOpenPanel(c.name === "All Categories" ? "" : c.name); }}>{c.name}</button>
                   ))}
                 </div>
               ) : null}
             </div>
-            <button type="button" className="rbx19-searchbtn" onClick={applySearch}>
-              <span className="rbx19-searchicon"></span>
-            </button>
+            <button type="button" className="rbx19-searchbtn" onClick={applySearch}><span className="rbx19-searchicon"></span></button>
           </div>
         </div>
         <a className="rbx19-buy" href="/BuildersClub/Upgrade.ashx">Buy Robux</a>
@@ -362,14 +309,10 @@ const CatalogInner = () => {
                     className={"rbx19-catbtn" + (openPanel === cat.name ? " is-on" : "")}
                     onClick={(e) => {
                       e.preventDefault();
-                      e.stopPropagation();
-                      if (cat.children.length) {
-                        setOpenPanel(opened ? "" : cat.name);
-                      } else {
-                        setOpenPanel(cat.name);
-                      }
+                      if (cat.children.length) setOpenPanel(opened ? "" : cat.name);
+                      else setOpenPanel(cat.name);
                       applyNav(store, cat.category, cat.subCategory);
-                      setCatLabel(cat.name === "View All Items" ? "All Categories" : cat.name);
+                      setCatLabel(cat.name);
                     }}
                   >
                     {cat.children.length ? <span className="rbx19-plus">{opened ? "−" : "+"}</span> : null}
@@ -384,7 +327,6 @@ const CatalogInner = () => {
                             className={store.subCategory === sub.subCategory && store.category === sub.category ? "is-on" : ""}
                             onClick={(e) => {
                               e.preventDefault();
-                              e.stopPropagation();
                               applyNav(store, sub.category, sub.subCategory);
                               setCatLabel(cat.name);
                             }}
@@ -401,16 +343,7 @@ const CatalogInner = () => {
           </ul>
           <div className="rbx19-filters">
             <h4>Genre</h4>
-            <button
-              type="button"
-              className="rbx19-allg"
-              onClick={(e) => {
-                e.preventDefault();
-                store.setGenres([]);
-              }}
-            >
-              All Genres
-            </button>
+            <button type="button" className="rbx19-allg" onClick={(e) => { e.preventDefault(); store.setGenres([]); }}>All Genres</button>
             {GENRES.map((v) => {
               const id = "rbx19_genre_" + v.genre;
               return (
@@ -420,11 +353,8 @@ const CatalogInner = () => {
                     type="checkbox"
                     checked={store.genres.includes(v.genre)}
                     onChange={(c) => {
-                      if (c.currentTarget.checked === false) {
-                        store.setGenres(store.genres.filter((x) => x !== v.genre));
-                      } else {
-                        store.setGenres([...store.genres, v.genre]);
-                      }
+                      if (!c.currentTarget.checked) store.setGenres(store.genres.filter((x) => x !== v.genre));
+                      else store.setGenres([...store.genres, v.genre]);
                     }}
                   />
                   {v.name}
@@ -436,36 +366,15 @@ const CatalogInner = () => {
         <div className="rbx19-main">
           <div className="rbx19-crumbs">
             <span className="rbx19-crumb">{catLabel}</span>
-            <div className="rbx19-sorts">
-              <button
-                type="button"
-                className="rbx19-ddbtn"
-                disabled={store.locked}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setSortOpen(!sortOpen);
-                  setCatOpen(false);
-                }}
-              >
+            <div className="rbx19-ddwrap">
+              <button type="button" className="rbx19-ddbtn" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSortOpen((o) => !o); setCatOpen(false); }}>
                 <span>{sortLabel}</span>
                 <i className="rbx19-caret"></i>
               </button>
               {sortOpen ? (
                 <div className="rbx19-menu">
                   {SORTS.map((s) => (
-                    <button
-                      type="button"
-                      key={s.key}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setSortOpen(false);
-                        store.setSort(s.key);
-                      }}
-                    >
-                      {s.label}
-                    </button>
+                    <button type="button" key={s.key} onClick={(e) => { e.preventDefault(); setSortOpen(false); store.setSort(s.key); }}>{s.label}</button>
                   ))}
                 </div>
               ) : null}
@@ -474,40 +383,11 @@ const CatalogInner = () => {
           <div className={store.locked ? "rbx19-dim" : ""}>
             {store.results && items.length === 0 ? <div className="rbx19-empty">No items found.</div> : null}
             <ul className="hlist item-cards-stackable">
-              {items.map((v) => (
-                <ItemCard key={v.id} {...v} />
-              ))}
+              {items.map((v) => <ItemCard key={v.id} {...v} />)}
             </ul>
-            <ul className="rbx19-pager">
-              <li>
-                <button
-                  type="button"
-                  disabled={store.page <= 1 || store.locked}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (store.locked || store.page <= 1) return;
-                    store.setPage(store.page - 1);
-                    store.setCursor(store.previousCursor);
-                  }}
-                >
-                  Previous
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  disabled={!store.nextCursor || store.locked}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (store.locked || !store.nextCursor) return;
-                    store.setPage(store.page + 1);
-                    store.setCursor(store.nextCursor);
-                  }}
-                >
-                  Next
-                </button>
-              </li>
-            </ul>
+          </div>
+          <div className="rbx19-pagerwrap">
+            <CatalogPagination />
           </div>
         </div>
       </div>
@@ -525,9 +405,34 @@ const CatalogPage = () => {
 };
 
 CatalogPage.getInitialProps = () => {
-  return {
-    title: "Catalog - ROBLOX",
-  };
+  return { title: "Catalog - ROBLOX" };
+};
+
+export default CatalogPage;
+center">Page {store.page}</p>
+              </div>
+              <div className="col-3">
+                <button type="button" className="w-100" onClick={pageClick(1)} disabled={store.locked || (!store.nextCursor && items.length < store.limit)}>Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const CatalogPage = () => {
+  return (
+    <CatalogPageStore.Provider>
+      <style>{CATALOG_CSS}</style>
+      <CatalogInner />
+    </CatalogPageStore.Provider>
+  );
+};
+
+CatalogPage.getInitialProps = () => {
+  return { title: "Catalog - ROBLOX" };
 };
 
 export default CatalogPage;
