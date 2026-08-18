@@ -506,7 +506,3 @@ CatalogPage.getInitialProps = () => {
 };
 
 export default CatalogPage;
-;
-};
-
-export default CatalogPage;
