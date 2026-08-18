@@ -9,9 +9,19 @@ $ErrorActionPreference = "Continue"
 
 function Get-Png($path, $userId) {
   $body = '{"userId":' + $userId + '}'
-  $r = Invoke-RestMethod -Uri ($Render + $path) -Method POST -ContentType "application/json" -Body $body -TimeoutSec 180
-  if (-not $r.success -or -not $r.data) { throw "no image" }
-  return [Convert]::FromBase64String($r.data)
+  $last = $null
+  for ($try = 1; $try -le 4; $try++) {
+    try {
+      $r = Invoke-RestMethod -Uri ($Render + $path) -Method POST -ContentType "application/json" -Body $body -TimeoutSec 180
+      if (-not $r.success -or -not $r.data) { throw "no image" }
+      return [Convert]::FromBase64String($r.data)
+    } catch {
+      $last = $_
+      Write-Host "  retry $try $path user $userId : $($_.Exception.Message)"
+      Start-Sleep -Seconds (3 * $try)
+    }
+  }
+  throw $last.Exception
 }
 
 $thumbDirs = @(
