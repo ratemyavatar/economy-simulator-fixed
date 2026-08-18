@@ -421,7 +421,7 @@ const CatalogInner = () => {
               ) : null}
             </div>
           </div>
-          <div className={store.locked ? "rbx19-dim" : ""}>
+          <div className={store.locked ? "rbx19-dim" : "rbx19-ready"}>
             {store.results && items.length === 0 ? <div className="rbx19-empty">No items found.</div> : null}
             <ul className="hlist item-cards-stackable">
               {items.map((v) => <ItemCard key={v.id} {...v} />)}
