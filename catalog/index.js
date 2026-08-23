@@ -250,12 +250,34 @@ const isWearableCatalogItem = (item) => {
   return true;
 };
 
+const assetThumbUrl = (id, n) => {
+  return "/thumbs/asset.ashx?assetId=" + id + "&width=420&height=420&format=png&_=" + n;
+};
+
 const ItemCard = (props) => {
   const thumbs = thumbnailStore.useContainer();
-  const [image, setImage] = useState(thumbs.getPlaceholder());
+  const [tick, setTick] = useState(0);
+  const [image, setImage] = useState(assetThumbUrl(props.id, 0));
   useEffect(() => {
-    setImage(thumbs.getAssetThumbnail(props.id));
-  }, [props.id, thumbs.thumbnails]);
+    const fromStore = thumbs.getAssetThumbnail(props.id);
+    if (fromStore && fromStore !== thumbs.getPlaceholder() && fromStore.indexOf("placeholder") === -1) {
+      setImage(fromStore);
+      return;
+    }
+    setImage(assetThumbUrl(props.id, tick));
+  }, [props.id, thumbs.thumbnails, tick]);
+  useEffect(() => {
+    let n = 0;
+    const t = setInterval(() => {
+      n += 1;
+      if (n > 20) {
+        clearInterval(t);
+        return;
+      }
+      setTick((v) => v + 1);
+    }, 4000);
+    return () => clearInterval(t);
+  }, [props.id]);
   const isLimited = props.itemRestrictions && props.itemRestrictions.includes("Limited");
   const isLimitedU = props.itemRestrictions && props.itemRestrictions.includes("LimitedUnique");
   const isNew = props.createdAt ? (Date.now() - new Date(props.createdAt).getTime()) < 172800000 : false;
@@ -278,10 +300,15 @@ const ItemCard = (props) => {
             <img
               alt={props.name}
               src={image}
+<<<<<<< HEAD
               onError={(e) => {
                 if (e.currentTarget.src !== thumbs.getPlaceholder()) {
                   setImage(thumbs.getPlaceholder());
                 }
+=======
+              onError={() => {
+                setImage(thumbs.getPlaceholder());
+>>>>>>> 4d773fc (Retry catalog asset thumbs and actually run RenderAssetAsync.)
               }}
             />
             <div className="itemStatusContainer-0-2-296">

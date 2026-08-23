@@ -766,7 +766,7 @@ public class AssetsService : ServiceBase, IService
         try
         {
             Console.WriteLine("Start multi render");
-            //await Task.WhenAll(thumbRequests);
+            await Task.WhenAll(thumbRequests);
             Console.WriteLine("End multi render");
         }
         catch (System.Exception e)
