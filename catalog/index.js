@@ -3,7 +3,6 @@ import NextLink from "next/link";
 import CatalogPageStore from "../../stores/catalogPage";
 import thumbnailStore from "../../stores/thumbnailStore";
 import { getItemUrl } from "../../services/catalog";
-import { getBaseUrl } from "../../lib/request";
 
 const CATALOG_CSS = `
 .rbx19{--primary-color:#00a2ff;--white-color:#fff;--white-color-hover:#f2f2f2;--text-color-primary:#191919;--text-color-secondary:#b8b8b8;--text-color-tertiary:#757575;--text-color-quinary:#c3c3c3;--robux-color:#02b757;--background-color:#f2f4f5;max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px;background:#f2f4f5}
@@ -80,27 +79,26 @@ const CATALOG_CSS = `
 .rbx19 .breadcrumbsContainer-0-2-251{margin:6px 0 12px;padding-left:6px}
 .rbx19 .selectorWrapper-0-2-252{width:230px;position:relative}
 .rbx19 .selector-0-2-253{padding:5px 12px;line-height:18px}
-.rbx19 .resultsContainer-0-2-255{gap:9.6px;min-width:60px}
-.rbx19 .cardWrapper-0-2-284{width:calc(16.6667% - 8px);display:flex;border-radius:3px;flex-direction:column}
-.rbx19 .cardContainer-0-2-285{width:100%;height:100%;display:flex;position:relative;border-radius:3px;flex-direction:column;background-color:#fff;color:#191919;transition:box-shadow 200ms;box-shadow:rgba(25,25,25,.3) 0 1px 4px 0}
-.rbx19 .cardContainer-0-2-285:hover{box-shadow:rgba(25,25,25,.75) 0 1px 6px 0}
-.rbx19 .cardImage-0-2-286{width:100%;cursor:pointer;position:relative;aspect-ratio:1/1;border-bottom:1px solid rgb(227,227,227);border-top-left-radius:3px;border-top-right-radius:3px;overflow:hidden;background:#f2f2f2}
-.rbx19 .cardImage-0-2-286 img{width:100%;height:auto;min-width:85px;min-height:100%;border-top-left-radius:3px;border-top-right-radius:3px;display:block}
-.rbx19 .cardItemLink-0-2-287{width:100%;display:inline-block;padding:6px 6px 0;line-height:16px}
-.rbx19 .cardItemLink-0-2-287 span{height:auto!important;display:inline-block;padding:0;font-size:14px;max-width:100%;line-height:1.4em}
-.rbx19 .cardItemLinkHeight-0-2-288{height:50px}
-.rbx19 .restrictionsContainer-0-2-290{left:-2px;bottom:-1px;overflow:hidden;position:absolute}
+.rbx19 .item-cards-stackable{width:100%;overflow:hidden;list-style:none;margin:0;padding:0}
+.rbx19 .item-cards-stackable .item-card{float:none;display:inline-block;vertical-align:top;padding:5px;width:16.6667%;height:250px}
+.rbx19 .item-cards-stackable .item-card .item-card-container{width:150px;max-width:150px;margin:0 auto;position:relative;padding:0 0 5px;height:100%;background:#fff;border-radius:3px;box-shadow:rgba(25,25,25,.3) 0 1px 4px 0;transition:box-shadow 200ms;display:block;color:#191919}
+.rbx19 .item-cards-stackable .item-card .item-card-container:hover{box-shadow:rgba(25,25,25,.75) 0 1px 6px 0}
+.rbx19 .item-card-link{display:block}
+.rbx19 .item-card-thumb-container{width:150px;height:150px;position:relative;border-bottom:1px solid rgb(227,227,227);overflow:hidden;background:#f2f2f2}
+.rbx19 .item-card-thumb{width:100%;height:100%;min-width:85px;min-height:85px;display:block}
+.rbx19 .item-card-caption{padding:6px 0 0}
+.rbx19 .item-card-name-link{display:block}
+.rbx19 .item-card-name{padding:0 5px;height:45px;overflow:hidden;white-space:normal;font-weight:500;font-size:14px;line-height:1.4em}
+.rbx19 .item-card-price{padding:0 5px;height:20px;font-size:16px}
+.rbx19 .item-card-thumb-container .icon-limited-label,.rbx19 .item-card-thumb-container .icon-limited-unique-label{position:absolute;left:-2px;bottom:-1px}
 .rbx19 .icon-limited-label,.rbx19 .icon-limited-unique-label{background-image:url(/img/icon_labels.svg);background-repeat:no-repeat;background-size:auto;height:18px;display:inline-block;vertical-align:middle}
 .rbx19 .icon-limited-label{width:60px;background-position:0 -54px}
 .rbx19 .icon-limited-unique-label{width:80px;background-position:0 -126px}
-.rbx19 .text-0-2-292{padding:0 5px}
-.rbx19 .currencyIcon-0-2-293{margin-top:1px;margin-right:2px}
-.rbx19 .currencyText-0-2-294{font-weight:500}
-.rbx19 .icon-robux-16x16{background-image:url(/img/branded.svg);background-repeat:no-repeat;background-size:200%;width:16px;height:16px;display:inline-block;vertical-align:middle;background-position:0 -64px}
-.rbx19 .text-robux{color:var(--robux-color)}
-.rbx19 .text-free{color:var(--text-color-tertiary)}
-.rbx19 .itemStatusContainer-0-2-296{gap:4px;top:0;right:0;margin:6px;display:flex;position:absolute}
-.rbx19 .itemStatusNew-0-2-298{padding:6px 5px;background-color:rgb(255,141,0);color:#fff;font-size:10px;font-weight:500;line-height:1em;border-radius:3px}
+.rbx19 .icon-robux-16x16{background-image:url(/img/branded.svg);background-repeat:no-repeat;background-size:200%;width:16px;height:16px;display:inline-block;vertical-align:middle;background-position:0 -64px;margin-right:2px}
+.rbx19 .text-robux,.rbx19 .text-robux-tile{color:var(--robux-color)}
+.rbx19 .text-free,.rbx19 .text-label{color:var(--text-color-tertiary)}
+.rbx19 .asset-status-icon{position:absolute;top:9px;right:6px;z-index:1}
+.rbx19 .status-new{display:inline-block;font-size:12px;font-weight:400;background-color:rgb(246,136,2);color:#fff;padding:4px;border-radius:3px;line-height:1em}
 .rbx19 .paginationContainer-0-2-256{gap:10px;width:100%;display:flex;margin-top:25px;align-items:center;justify-content:center}
 .rbx19 .paginationBtn-0-2-257{display:flex;padding:3px;aspect-ratio:1/1;background:#fff;border:1px solid var(--text-color-secondary);border-radius:3px;cursor:pointer}
 .rbx19 .paginationBtn-0-2-257 span{width:24px;height:24px;display:inline-block;vertical-align:middle;background-size:48px;background-image:url(/img/generic_03112016.svg);background-repeat:no-repeat}
@@ -111,20 +109,17 @@ const CATALOG_CSS = `
 .rbx19-dim{opacity:.45}
 .rbx19-empty{text-align:center;padding:24px;color:#757575}
 @media (max-width:991px){
-.rbx19 .cardWrapper-0-2-284{width:calc(20% - 8px)}
+.rbx19 .item-cards-stackable .item-card{width:20%}
 }
 @media (max-width:767px){
 .rbx19 .catalogHeader-0-2-225{gap:10px;margin-bottom:20px;flex-direction:column}
 .rbx19 .searchWrapper-0-2-233{width:100%}
-.rbx19 .cardWrapper-0-2-284{width:calc(25% - 8px)}
-}
-@media (max-width:616px){
-.rbx19 .cardWrapper-0-2-284{width:calc(33% - 8px)}
+.rbx19 .item-cards-stackable .item-card{width:25%;height:auto}
 }
 @media (max-width:576px){
 .rbx19 .searchOptionsContainer-0-2-223{display:none}
 .rbx19 .searchResultsContainer-0-2-224{width:100%}
-.rbx19 .cardWrapper-0-2-284{width:calc(50% - 8px)}
+.rbx19 .item-cards-stackable .item-card{width:50%}
 }
 `;
 
@@ -506,10 +501,10 @@ const CatalogInner = () => {
                   </div>
                 </div>
               </div>
-              <div className={store.locked ? "resultsContainer-0-2-255 flex rbx19-dim" : "resultsContainer-0-2-255 flex"}>
-                {store.results && items.length === 0 ? <div className="rbx19-empty">No items found.</div> : null}
+              <ul className={store.locked ? "hlist item-cards-stackable rbx19-dim" : "hlist item-cards-stackable"}>
+                {store.results && items.length === 0 ? <li className="rbx19-empty">No items found.</li> : null}
                 {items.map((v) => <ItemCard key={v.id} {...v} />)}
-              </div>
+              </ul>
               <div className="paginationContainer-0-2-256">
                 <button type="button" className={"paginationBtn-0-2-257" + (store.page <= 1 || store.locked ? " disabled" : "")} onClick={pageClick(-1)}>
                   <span className="backIcon-0-2-259"></span>
