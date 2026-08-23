@@ -5,7 +5,7 @@ import thumbnailStore from "../../stores/thumbnailStore";
 import { getItemUrl } from "../../services/catalog";
 
 const CATALOG_CSS = `
-.rbx19{--primary-color:#00a2ff;--white-color:#fff;--white-color-hover:#f2f2f2;--text-color-primary:#191919;--text-color-secondary:#b8b8b8;--text-color-tertiary:#757575;--text-color-quinary:#c3c3c3;--robux-color:#02b757;--background-color:#e3e3e3;max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px;background:#e3e3e3}
+.rbx19{--primary-color:#00a2ff;--white-color:#fff;--white-color-hover:#2c2e30;--text-color-primary:#fff;--text-color-secondary:#b8b8b8;--text-color-tertiary:#b8b8b8;--text-color-quinary:#3d3f41;--robux-color:#02b757;--background-color:#232527;max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#fff;min-height:100vh;background:#232527}
 .rbx19 *{box-sizing:border-box}
 .rbx19 a{color:inherit;text-decoration:none}
 .rbx19 button{appearance:none;-webkit-appearance:none;margin:0;font-family:inherit}
@@ -38,23 +38,23 @@ const CATALOG_CSS = `
 .rbx19 .icon-search{background-position:0 -28px}
 .rbx19 .icon-menu{background-position:0 -364px}
 .rbx19 .icon-close{background-position:0 -588px}
-.rbx19 .icon-plus,.rbx19 .icon-minus{background-image:url(/img/generic-2019.svg);width:12px;height:12px;background-size:24px}
-.rbx19 .icon-plus{background-position:0 -660px}
-.rbx19 .icon-minus{background-position:0 -672px}
-.rbx19 .icon-plus:hover{background-position:-12px -660px}
-.rbx19 .icon-minus:hover{background-position:-12px -672px}
-.rbx19 .selectorClosed-0-2-243{color:var(--text-color-primary);width:100%;border:1px solid var(--text-color-quinary);cursor:pointer;padding:10px 15px;font-size:16px;background:var(--white-color);text-align:left;user-select:none;border-radius:4px;box-sizing:border-box}
+.rbx19 .icon-plus,.rbx19 .icon-minus{background-image:url(/img/generic-2019.svg);width:28px;height:28px;background-size:56px auto;flex-shrink:0}
+.rbx19 .icon-plus{background-position:0 -1544px}
+.rbx19 .icon-minus{background-position:0 -1582px}
+.rbx19 .icon-plus:hover{background-position:-28px -1544px}
+.rbx19 .icon-minus:hover{background-position:-28px -1582px}
+.rbx19 .selectorClosed-0-2-243{color:#fff;width:100%;border:1px solid #3d3f41;cursor:pointer;padding:10px 15px;font-size:16px;background:#232527;text-align:left;user-select:none;border-radius:4px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between}
 .rbx19 .search-0-2-236 .selectorClosed-0-2-243{height:38px;padding:0 12px;line-height:36px;border-radius:0;display:flex;align-items:center}
-.rbx19 .selectorClosed-0-2-243:hover{background:var(--primary-color);color:var(--white-color)}
-.rbx19 .selectorCaret-0-2-245{float:right}
-.rbx19 .selectorMenuOpen-0-2-246{width:100%;z-index:3;position:absolute;left:0;top:100%;background:#fff;overflow-x:hidden;border-radius:4px;border:1px solid var(--text-color-secondary);box-shadow:0 2px 4px rgba(0,0,0,.15)}
-.rbx19 .selectOption-0-2-247{cursor:pointer;padding:10px 15px;font-size:16px;user-select:none;margin-bottom:0;width:100%;background:transparent;border:0;text-align:left;color:var(--text-color-primary)}
-.rbx19 .selectOption-0-2-247:hover{box-shadow:inset 4px 0 0 0 var(--primary-color);background-color:var(--white-color-hover)}
+.rbx19 .selectorClosed-0-2-243:hover{background:#00a2ff;color:#fff}
+.rbx19 .selectorCaret-0-2-245{float:none;flex-shrink:0;margin-left:8px;line-height:1}
+.rbx19 .selectorMenuOpen-0-2-246{width:100%;z-index:3;position:absolute;left:0;top:100%;background:#232527;overflow-x:hidden;border-radius:4px;border:1px solid #3d3f41;box-shadow:0 2px 4px rgba(0,0,0,.35)}
+.rbx19 .selectOption-0-2-247{cursor:pointer;padding:10px 15px;font-size:16px;user-select:none;margin-bottom:0;width:100%;background:transparent;border:0;text-align:left;color:#fff}
+.rbx19 .selectOption-0-2-247:hover{box-shadow:none;background:#00a2ff;color:#fff}
 .rbx19 .catalogContainer-0-2-226{align-items:flex-start}
 .rbx19 .searchOptionsContainer-0-2-223{width:160px;border-right:1px solid var(--text-color-secondary);margin-right:12px}
 .rbx19 .searchResultsContainer-0-2-224{width:calc(100% - 172px)}
 .rbx19 .searchOptionWrapper-0-2-265{margin:0 12px 0 0;border-bottom:1px solid rgb(184,184,184)}
-.rbx19 .searchOptionHeader-0-2-266{padding:5px 0;font-size:20px;font-weight:700;line-height:1em;margin:0}
+.rbx19 .searchOptionHeader-0-2-266{padding:5px 0;font-size:20px;font-weight:700;line-height:1em;margin:0;color:#fff}
 .rbx19 .searchOptionHeaderContainer-0-2-267{margin-bottom:4px}
 .rbx19 .categoryWrapper-0-2-268{padding-bottom:12px}
 .rbx19 .categoryContainer-0-2-269{margin-bottom:6px}

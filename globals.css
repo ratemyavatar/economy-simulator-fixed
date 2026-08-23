@@ -46,7 +46,7 @@
 
 
 
-    --background-color: #e3e3e3;
+    --background-color: #232527;
 
     --background-color-legacy: #fff;
 
@@ -96,7 +96,7 @@ body {
 
     min-height: 100vh;
 
-    background: #e3e3e3;
+    background: #232527;
 
     background-color: var(--background-color);
 
@@ -108,7 +108,7 @@ body {
 
     min-height: 100vh;
 
-    background: #e3e3e3;
+    background: #232527;
 
     background-color: var(--background-color);
 
