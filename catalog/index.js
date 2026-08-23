@@ -246,90 +246,55 @@ const isWearableCatalogItem = (item) => {
   return true;
 };
 
-const origin = () => {
-  try {
-    const b = (getBaseUrl() || "").replace(/\/$/, "");
-    if (b) return b;
-  } catch (e) {}
-  return "";
-};
-
-const absUrl = (u) => {
-  if (!u) return u;
-  if (u.indexOf("http://") === 0 || u.indexOf("https://") === 0) return u;
-  return origin() + (u.charAt(0) === "/" ? u : "/" + u);
-};
-
-const assetThumbUrl = (id, n) => {
-  return origin() + "/thumbs/asset.ashx?assetId=" + id + "&width=420&height=420&format=png&_=" + n;
-};
-
 const ItemCard = (props) => {
   const thumbs = thumbnailStore.useContainer();
-  const [tick, setTick] = useState(0);
-  const [image, setImage] = useState(assetThumbUrl(props.id, 0));
+  const [image, setImage] = useState(thumbs.getPlaceholder());
   useEffect(() => {
-    const fromStore = thumbs.getAssetThumbnail(props.id);
-    if (fromStore && fromStore !== thumbs.getPlaceholder() && fromStore.indexOf("placeholder") === -1) {
-      setImage(absUrl(fromStore));
-      return;
-    }
-    setImage(assetThumbUrl(props.id, tick));
-  }, [props.id, thumbs.thumbnails, tick]);
-  useEffect(() => {
-    let n = 0;
-    const t = setInterval(() => {
-      n += 1;
-      if (n > 20) {
-        clearInterval(t);
-        return;
-      }
-      setTick((v) => v + 1);
-    }, 4000);
-    return () => clearInterval(t);
-  }, [props.id]);
+    setImage(thumbs.getAssetThumbnail(props.id));
+  }, [props.id, thumbs.thumbnails]);
   const isLimited = props.itemRestrictions && props.itemRestrictions.includes("Limited");
   const isLimitedU = props.itemRestrictions && props.itemRestrictions.includes("LimitedUnique");
   const isNew = props.createdAt ? (Date.now() - new Date(props.createdAt).getTime()) < 172800000 : false;
   const href = getItemUrl({ assetId: props.id, name: props.name });
   let price = null;
   if (props.isForSale && props.price === 0) {
-    price = <span className="currencyText-0-2-294 text-free">Free</span>;
+    price = <span className="text text-label text-robux-tile">Free</span>;
   } else if (props.isForSale && props.price !== null) {
-    price = <><span className="icon-robux-16x16 currencyIcon-0-2-293"></span><span className="currencyText-0-2-294 text-robux">{Number(props.price).toLocaleString()}</span></>;
+    price = <><span className="icon-robux-16x16"></span><span className="text-robux-tile">{Number(props.price).toLocaleString()}</span></>;
   } else if ((isLimited || isLimitedU) && !props.isForSale) {
-    price = <><span className="icon-robux-16x16 currencyIcon-0-2-293"></span><span className="currencyText-0-2-294 text-robux">{Number(props.lowestPrice || props.price || 0).toLocaleString()}</span></>;
+    price = <><span className="icon-robux-16x16"></span><span className="text-robux-tile">{Number(props.lowestPrice || props.price || 0).toLocaleString()}</span></>;
   } else {
-    price = <span className="currencyText-0-2-294 text-free">Offsale</span>;
+    price = <span className="text text-label">Offsale</span>;
   }
   return (
-    <div className="cardWrapper-0-2-284">
+    <li className="list-item item-card">
       <NextLink href={href}>
-        <a className="cardContainer-0-2-285">
-          <div className="cardImage-0-2-286">
-            <img
-              alt={props.name}
-              src={image}
-              onError={() => {
-                setImage(thumbs.getPlaceholder());
-              }}
-            />
-            <div className="itemStatusContainer-0-2-296">
-              {isNew ? <div className="itemStatusNew-0-2-298">New</div> : null}
-            </div>
-            <div className="restrictionsContainer-0-2-290">
+        <a className="item-card-container">
+          <div className="item-card-link">
+            <div className="item-card-thumb-container">
+              <img
+                className="item-card-thumb"
+                alt={props.name}
+                src={image}
+                onError={(e) => {
+                  if (e.currentTarget.src !== thumbs.getPlaceholder()) {
+                    setImage(thumbs.getPlaceholder());
+                  }
+                }}
+              />
               {isLimitedU ? <span className="icon-limited-unique-label"></span> : isLimited ? <span className="icon-limited-label"></span> : null}
+              {isNew ? <div className="asset-status-icon"><span className="status-new">New</span></div> : null}
             </div>
           </div>
-          <span className="cardItemLink-0-2-287 cardItemLinkHeight-0-2-288">
-            <span className="text-overflow-2 noHeight-0-2-307" title={props.name}>{props.name}</span>
-          </span>
-          <div className="text-0-2-292 flex w-fit-content">
-            {price}
+          <div className="item-card-caption">
+            <div className="item-card-name-link">
+              <div className="item-card-name" title={props.name}>{props.name}</div>
+            </div>
+            <div className="text-overflow item-card-price">{price}</div>
           </div>
         </a>
       </NextLink>
-    </div>
+    </li>
   );
 };
 
