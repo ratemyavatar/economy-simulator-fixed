@@ -250,8 +250,18 @@ const isWearableCatalogItem = (item) => {
   return true;
 };
 
+const CAELUS = "https://www.caelus.lol";
+
+const absUrl = (u) => {
+  if (!u) return u;
+  if (u.indexOf("http://") === 0 || u.indexOf("https://") === 0) {
+    return u.replace("https://www.anemon.lol", CAELUS).replace("http://localhost:5000", CAELUS);
+  }
+  return CAELUS + (u.charAt(0) === "/" ? u : "/" + u);
+};
+
 const assetThumbUrl = (id, n) => {
-  return "/thumbs/asset.ashx?assetId=" + id + "&width=420&height=420&format=png&_=" + n;
+  return CAELUS + "/thumbs/asset.ashx?assetId=" + id + "&width=420&height=420&format=png&_=" + n;
 };
 
 const ItemCard = (props) => {
@@ -261,7 +271,7 @@ const ItemCard = (props) => {
   useEffect(() => {
     const fromStore = thumbs.getAssetThumbnail(props.id);
     if (fromStore && fromStore !== thumbs.getPlaceholder() && fromStore.indexOf("placeholder") === -1) {
-      setImage(fromStore);
+      setImage(absUrl(fromStore));
       return;
     }
     setImage(assetThumbUrl(props.id, tick));
@@ -300,15 +310,8 @@ const ItemCard = (props) => {
             <img
               alt={props.name}
               src={image}
-<<<<<<< HEAD
-              onError={(e) => {
-                if (e.currentTarget.src !== thumbs.getPlaceholder()) {
-                  setImage(thumbs.getPlaceholder());
-                }
-=======
               onError={() => {
                 setImage(thumbs.getPlaceholder());
->>>>>>> 4d773fc (Retry catalog asset thumbs and actually run RenderAssetAsync.)
               }}
             />
             <div className="itemStatusContainer-0-2-296">
