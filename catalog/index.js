@@ -3,9 +3,10 @@ import NextLink from "next/link";
 import CatalogPageStore from "../../stores/catalogPage";
 import thumbnailStore from "../../stores/thumbnailStore";
 import { getItemUrl } from "../../services/catalog";
+import { getBaseUrl } from "../../lib/request";
 
 const CATALOG_CSS = `
-.rbx19{--primary-color:#00a2ff;--white-color:#fff;--white-color-hover:#2c2e30;--text-color-primary:#fff;--text-color-secondary:#b8b8b8;--text-color-tertiary:#b8b8b8;--text-color-quinary:#3d3f41;--robux-color:#02b757;--background-color:#232527;max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#fff;min-height:100vh;background:#232527}
+.rbx19{--primary-color:#00a2ff;--white-color:#fff;--white-color-hover:#f2f2f2;--text-color-primary:#191919;--text-color-secondary:#b8b8b8;--text-color-tertiary:#757575;--text-color-quinary:#c3c3c3;--robux-color:#02b757;--background-color:#f2f4f5;max-width:970px;margin:0 auto;padding:12px 8px 48px;font-family:Source Sans Pro,Arial,Helvetica,sans-serif;color:#191919;min-height:500px;background:#f2f4f5}
 .rbx19 *{box-sizing:border-box}
 .rbx19 a{color:inherit;text-decoration:none}
 .rbx19 button{appearance:none;-webkit-appearance:none;margin:0;font-family:inherit}
@@ -43,18 +44,18 @@ const CATALOG_CSS = `
 .rbx19 .icon-minus{background-position:0 -1582px}
 .rbx19 .icon-plus:hover{background-position:-28px -1544px}
 .rbx19 .icon-minus:hover{background-position:-28px -1582px}
-.rbx19 .selectorClosed-0-2-243{color:#fff;width:100%;border:1px solid #3d3f41;cursor:pointer;padding:10px 15px;font-size:16px;background:#232527;text-align:left;user-select:none;border-radius:4px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between}
+.rbx19 .selectorClosed-0-2-243{color:#191919;width:100%;border:1px solid #c3c3c3;cursor:pointer;padding:10px 15px;font-size:16px;background:#fff;text-align:left;user-select:none;border-radius:4px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between}
 .rbx19 .search-0-2-236 .selectorClosed-0-2-243{height:38px;padding:0 12px;line-height:36px;border-radius:0;display:flex;align-items:center}
 .rbx19 .selectorClosed-0-2-243:hover{background:#00a2ff;color:#fff}
 .rbx19 .selectorCaret-0-2-245{float:none;flex-shrink:0;margin-left:8px;line-height:1}
-.rbx19 .selectorMenuOpen-0-2-246{width:100%;z-index:3;position:absolute;left:0;top:100%;background:#232527;overflow-x:hidden;border-radius:4px;border:1px solid #3d3f41;box-shadow:0 2px 4px rgba(0,0,0,.35)}
-.rbx19 .selectOption-0-2-247{cursor:pointer;padding:10px 15px;font-size:16px;user-select:none;margin-bottom:0;width:100%;background:transparent;border:0;text-align:left;color:#fff}
+.rbx19 .selectorMenuOpen-0-2-246{width:100%;z-index:3;position:absolute;left:0;top:100%;background:#fff;overflow-x:hidden;border-radius:4px;border:1px solid #c3c3c3;box-shadow:0 2px 4px rgba(0,0,0,.15)}
+.rbx19 .selectOption-0-2-247{cursor:pointer;padding:10px 15px;font-size:16px;user-select:none;margin-bottom:0;width:100%;background:transparent;border:0;text-align:left;color:#191919}
 .rbx19 .selectOption-0-2-247:hover{box-shadow:none;background:#00a2ff;color:#fff}
 .rbx19 .catalogContainer-0-2-226{align-items:flex-start}
 .rbx19 .searchOptionsContainer-0-2-223{width:160px;border-right:1px solid var(--text-color-secondary);margin-right:12px}
 .rbx19 .searchResultsContainer-0-2-224{width:calc(100% - 172px)}
 .rbx19 .searchOptionWrapper-0-2-265{margin:0 12px 0 0;border-bottom:1px solid rgb(184,184,184)}
-.rbx19 .searchOptionHeader-0-2-266{padding:5px 0;font-size:20px;font-weight:700;line-height:1em;margin:0;color:#fff}
+.rbx19 .searchOptionHeader-0-2-266{padding:5px 0;font-size:20px;font-weight:700;line-height:1em;margin:0;color:#191919}
 .rbx19 .searchOptionHeaderContainer-0-2-267{margin-bottom:4px}
 .rbx19 .categoryWrapper-0-2-268{padding-bottom:12px}
 .rbx19 .categoryContainer-0-2-269{margin-bottom:6px}
@@ -81,7 +82,7 @@ const CATALOG_CSS = `
 .rbx19 .selector-0-2-253{padding:5px 12px;line-height:18px}
 .rbx19 .resultsContainer-0-2-255{gap:9.6px;min-width:60px}
 .rbx19 .cardWrapper-0-2-284{width:calc(16.6667% - 8px);display:flex;border-radius:3px;flex-direction:column}
-.rbx19 .cardContainer-0-2-285{width:100%;height:100%;display:flex;position:relative;border-radius:3px;flex-direction:column;background-color:var(--white-color);transition:box-shadow 200ms;box-shadow:rgba(25,25,25,.3) 0 1px 4px 0}
+.rbx19 .cardContainer-0-2-285{width:100%;height:100%;display:flex;position:relative;border-radius:3px;flex-direction:column;background-color:#fff;color:#191919;transition:box-shadow 200ms;box-shadow:rgba(25,25,25,.3) 0 1px 4px 0}
 .rbx19 .cardContainer-0-2-285:hover{box-shadow:rgba(25,25,25,.75) 0 1px 6px 0}
 .rbx19 .cardImage-0-2-286{width:100%;cursor:pointer;position:relative;aspect-ratio:1/1;border-bottom:1px solid rgb(227,227,227);border-top-left-radius:3px;border-top-right-radius:3px;overflow:hidden;background:#f2f2f2}
 .rbx19 .cardImage-0-2-286 img{width:100%;height:auto;min-width:85px;min-height:100%;border-top-left-radius:3px;border-top-right-radius:3px;display:block}
@@ -250,18 +251,22 @@ const isWearableCatalogItem = (item) => {
   return true;
 };
 
-const CAELUS = "https://www.caelus.lol";
+const origin = () => {
+  try {
+    const b = (getBaseUrl() || "").replace(/\/$/, "");
+    if (b) return b;
+  } catch (e) {}
+  return "";
+};
 
 const absUrl = (u) => {
   if (!u) return u;
-  if (u.indexOf("http://") === 0 || u.indexOf("https://") === 0) {
-    return u.replace("https://www.anemon.lol", CAELUS).replace("http://localhost:5000", CAELUS);
-  }
-  return CAELUS + (u.charAt(0) === "/" ? u : "/" + u);
+  if (u.indexOf("http://") === 0 || u.indexOf("https://") === 0) return u;
+  return origin() + (u.charAt(0) === "/" ? u : "/" + u);
 };
 
 const assetThumbUrl = (id, n) => {
-  return CAELUS + "/thumbs/asset.ashx?assetId=" + id + "&width=420&height=420&format=png&_=" + n;
+  return origin() + "/thumbs/asset.ashx?assetId=" + id + "&width=420&height=420&format=png&_=" + n;
 };
 
 const ItemCard = (props) => {
